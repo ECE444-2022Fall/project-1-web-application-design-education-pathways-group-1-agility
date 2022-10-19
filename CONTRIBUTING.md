@@ -1,16 +1,21 @@
 # Welcome to GitHub docs contributing guide
 Thank you for investing your time in contributing to our project! Any contribution you make will be reflected on docs.github.com ✨.
 
-Read our [Code of Conduct](https://github.com/ECE444-2021Fall/project1-education-pathways-group-8-the-red-flags/issues) to keep our community approachable and respectable.
+Read our [Code of Conduct]([https://github.com/ECE444-2021Fall/project1-education-pathways-group-8-the-red-flags/issues](https://github.com/ECE444-2022Fall/project-1-web-application-design-education-pathways-group-1-agility/blob/main/CODE_OF_CONDUCT.md)) to keep our community approachable and respectable.
 
 In this guide you will get an overview of the contribution workflow from opening an issue, creating a PR, reviewing, and merging the PR.
 
+# New contributor guide
+To get an overview of the project, read the README. Here are some resources to help you get started with open source contributions:
+
+Finding ways to contribute to open source on GitHub
+Set up Git
+GitHub flow
+Collaborating with pull requests
 -----
 
 # Project Owners
 - Shurui Zhou
-
-# Project Contributors
 - Nissar Ishtiak
 - Andrew Kim
 - Abdullah A. Mohammed

@@ -86,7 +86,9 @@ class CourseDescriptionPage extends Component {
         } else {
           this.setState({exclusions : res.data.course.exclusion})
         }
-        let syllabus_link = "http://courses.skule.ca/course/" + this.props.code
+        let pathnameList = this.props.location.pathname.split("/")
+        let courseName = pathnameList[pathnameList.length - 1]
+        let syllabus_link = "http://courses.skule.ca/search/" + courseName
         this.setState({syllabus : syllabus_link})
 
         let temp_graph = []

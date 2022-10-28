@@ -1,14 +1,12 @@
 import pandas as pd
 import re
 
-# df = pd.read_csv("resources/courses.csv", usecols=range(0, 26))
-
 def get_first_digit(s):
     for _, c in enumerate(str(s)):
         if c.isdigit(): return int(c)
 
 def df_search(search_term=None, df=None,
-              min_course_level=None, max_course_level=None,
+              min_course_level=None, max_course_level=None, campus=None,
               faculty=None, department=None, major=None, minor=None):
     
     courses = pd.DataFrame()
@@ -38,7 +36,10 @@ def df_search(search_term=None, df=None,
     
     if max_course_level:
         courses = courses[courses['level']<=max_course_level]
-        
+
+    if campus:
+        courses = courses[courses['Campus'].str.contains(campus, case=False, na=False)]    
+    
     if faculty:
         courses = courses[courses['Division'].str.contains(faculty, case=False, na=False)]
         

@@ -10,6 +10,7 @@ import starred from './img/starred.png'
 import axios from "axios"
 
 let star = empty_star;
+const print = console.log
 
 class CourseDescriptionPage extends Component {
 
@@ -19,8 +20,10 @@ class CourseDescriptionPage extends Component {
     this.state = {
       course_code: "",
       course_name: "",
-      division: "Faculty of Applied Science and Engineering",
-      department: "Department of Edward S. Rogers Sr. Dept. of Electrical & Computer Engineering",
+      // division: "Division To be decided",
+      // department: "Department to be decided",
+      division: "",
+      department: "",
       graph : "",
       course_description: "",
       syllabus: "",
@@ -86,9 +89,24 @@ class CourseDescriptionPage extends Component {
         } else {
           this.setState({exclusions : res.data.course.exclusion})
         }
-        let pathnameList = this.props.location.pathname.split("/")
-        let courseName = pathnameList[pathnameList.length - 1]
-        let syllabus_link = "http://courses.skule.ca/search/" + courseName
+        print("\n\n\n");
+        print(this.props)
+        print(this.state)
+        var syllabus_link;
+        if (this.state.course_code.slice(0,3) !== "ECE"){
+          print(this.state.course_code)
+          print("\nThis is not a ECE Course")
+          // var syllabus_link = "https://artsci.calendar.utoronto.ca/course/" + this.state.course_code
+          syllabus_link = "https://exams-library-utoronto-ca.myaccess.library.utoronto.ca/simple-search?query=" + this.state.course_code
+        }
+        else{
+          print(this.state.course_code)
+          print("\nThis is a ECE Course")
+          let pathnameList = this.props.location.pathname.split("/")
+          let courseName = pathnameList[pathnameList.length - 1]
+          syllabus_link = "http://courses.skule.ca/search/" + courseName
+        }
+
         this.setState({syllabus : syllabus_link})
 
         let temp_graph = []
@@ -133,7 +151,7 @@ class CourseDescriptionPage extends Component {
               <p>{this.state.department}</p>
             </Col>
             <Col className="col-item">
-              <h3>Past Tests and Syllabi</h3>
+              <h3>Past Tests</h3>
               <button className={"syllabus-link"} onClick={this.openLink}>View</button>
             </Col>
           </Row>

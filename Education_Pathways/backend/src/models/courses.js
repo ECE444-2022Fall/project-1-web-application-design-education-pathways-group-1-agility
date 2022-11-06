@@ -22,6 +22,17 @@ const Course = mongoose.model("Course", {
     required: true,
     trim: true,
   },
+  Rating: {
+    type: Number,
+    min: 0,
+    default: 0,
+    max: 5,
+  },
+  RatingNum: {
+    type: Number,
+    min: 0,
+    default: 0,
+  },
   "Course Description": {
     type: String,
     required: true,
@@ -61,11 +72,11 @@ const Course = mongoose.model("Course", {
     type: Array,
     default: [],
   },
-  MajorOutcomes: {
+  MajorsOutcomes: {
     type: Array,
     default: [],
   },
-  MinorOutcomes: {
+  MinorsOutcomes: {
     type: Array,
     default: [],
   },

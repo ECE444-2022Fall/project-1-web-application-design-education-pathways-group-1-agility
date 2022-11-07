@@ -88,6 +88,26 @@ p {
     text-align: center;
 }
 
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.form-field-label {
+  font-size: 2em;
+}
+
+.form-field {
+  margin-bottom: 2%;
+}
+
+#description {
+  width: 70%;
+  height: 5%;
+}
+
 .req-graph {
   border: none;
   width: 60%;

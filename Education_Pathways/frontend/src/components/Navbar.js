@@ -14,6 +14,7 @@ import CourseDescriptionPage from "./CourseDescription";
 // import Wishlist from './Wishlist';
 // import SignUp from './SignUp'
 import SearchResultDisplay from "./ResultDisplay";
+import EditCourseDescription from "./EditCourseDescription";
 
 export default class NavbarComp extends Component {
   constructor(props) {
@@ -53,6 +54,13 @@ export default class NavbarComp extends Component {
                 <Nav.Link as={Link} to="/about">
                   About Us
                 </Nav.Link>
+                {/* <Nav.Link as={Link} to="/courseDetails/ECE318H1"> */}
+                <Nav.Link as={Link} to="/courseDetails/ECE201H1">
+                  Time Table
+                </Nav.Link>
+                {/* <Nav.Link as={Link} to="/edit">
+                  Ed
+                </Nav.Link> */}
 
                 {/* <Nav.Link href="/search" style={{ color: "white", display: "inline" }}>
                   Search
@@ -102,11 +110,13 @@ export default class NavbarComp extends Component {
             <Route path="/search">
               <SearchResultDisplay />
             </Route>
+
             <Route
               exact
               path="/courseDetails/:id"
               render={(props) => <CourseDescriptionPage {...props} />}
             ></Route>
+            <Route path="/edit/:id" component={EditCourseDescription}></Route>
             <Route path="/">
               <SearchResultDisplay />
             </Route>

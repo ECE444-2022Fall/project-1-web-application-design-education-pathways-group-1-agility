@@ -108,6 +108,10 @@ p {
   height: 5%;
 }
 
+#form-back-button {
+  margin-right: 88%;
+}
+
 .req-graph {
   border: none;
   width: 60%;

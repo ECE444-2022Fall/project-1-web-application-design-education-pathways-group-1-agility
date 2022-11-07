@@ -12,9 +12,8 @@ class Label extends Component{
     this.state = {
       course_code : "Course Code",
       course_name: "Course Name",
-      division: "Division",
+      division: "Department",
       faculty: "Faculty",
-      starred: "Status"
     };
   }
 
@@ -30,7 +29,6 @@ class Label extends Component{
             </Col>
             <Col><h5>{this.state.division}</h5></Col>
             <Col><h5>{this.state.faculty}</h5></Col>
-            {/* <Col><h5>{this.state.starred}</h5></Col> */}
         </Row>
       </Container>
     );

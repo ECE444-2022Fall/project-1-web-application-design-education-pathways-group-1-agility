@@ -25,8 +25,8 @@ class CourseDescriptionPage extends Component {
       exclusions: "",
       rating: 0,
       userRating: 0,
-      dispRating: true,
       dispSpinner: false,
+      dispRating: false,
     };
   }
 
@@ -41,6 +41,11 @@ class CourseDescriptionPage extends Component {
       this.setState({ corequisites: res.data["Corequisite"].join(", ") });
       this.setState({ exclusions: res.data["Exclusion"].join(", ") });
       this.setState({ rating: res.data.Rating });
+      this.setState({
+        dispRating: !localStorage.getItem(
+          `rating-${this.props.match.params.id}`
+        ),
+      });
 
       const syllabus_link = (() => {
         if (this.state.course_code.slice(0, 3) !== "ECE") {
@@ -75,13 +80,15 @@ class CourseDescriptionPage extends Component {
   submitUserRating = () => {
     this.setState({ dispSpinner: true });
     if (this.state.userRating) {
+      const id = this.props.match.params.id;
       axios
-        .patch(`/courses/ratings/${this.props.match.params.id}`, {
+        .patch(`/courses/ratings/${id}`, {
           Rating: this.state.userRating,
         })
         .then((res) => {
           this.setState({ rating: res.data.Rating });
           this.setState({ dispSpinner: false });
+          localStorage.setItem(`rating-${id}`, "true");
           this.setState({ dispRating: false });
         });
     }

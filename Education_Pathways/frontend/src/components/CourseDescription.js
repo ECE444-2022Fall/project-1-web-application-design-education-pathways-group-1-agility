@@ -6,9 +6,8 @@ import ReactStars from "react-rating-stars-component";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import axios from "../axiosInstance/AxiosInstance";
-import EditCourseDescription from './EditCourseDescription.js'
+import Spinner from "./Spinner";
 import { Link } from "react-router-dom";
-
 
 class CourseDescriptionPage extends Component {
   constructor(props) {
@@ -26,6 +25,8 @@ class CourseDescriptionPage extends Component {
       exclusions: "",
       rating: 0,
       userRating: 0,
+      dispRating: true,
+      dispSpinner: false,
     };
   }
 
@@ -68,11 +69,11 @@ class CourseDescriptionPage extends Component {
   };
 
   onRatingChange = (rating) => {
-    console.log(rating);
     this.setState({ userRating: rating });
   };
 
   submitUserRating = () => {
+    this.setState({ dispSpinner: true });
     if (this.state.userRating) {
       axios
         .patch(`/courses/ratings/${this.props.match.params.id}`, {
@@ -80,12 +81,16 @@ class CourseDescriptionPage extends Component {
         })
         .then((res) => {
           this.setState({ rating: res.data.Rating });
+          this.setState({ dispSpinner: false });
+          this.setState({ dispRating: false });
         });
     }
   };
 
   render() {
-    return (
+    return this.state.dispSpinner ? (
+      <Spinner />
+    ) : (
       <div className="page-content">
         <Container className="course-template">
           <Row float="center" className="course-title">
@@ -126,9 +131,12 @@ class CourseDescriptionPage extends Component {
           <Row className="col-item course-description">
             <h3>Course Description</h3>
             <p>{this.state.course_description}</p>
-            <Link to={`/edit/${this.props.match.params.id}`} state={{id: this.props.match.params.id}}><button className={'syllabus-link'}>
-              Edit
-            </button></Link>
+            <Link
+              to={`/edit/${this.props.match.params.id}`}
+              state={{ id: this.props.match.params.id }}
+            >
+              <button className={"syllabus-link"}>Edit</button>
+            </Link>
           </Row>
           <Row className="col-item course-requisite">
             <Row>
@@ -149,7 +157,7 @@ class CourseDescriptionPage extends Component {
               </Col>
             </Row>
           </Row>
-          {
+          {this.state.dispRating ? (
             <Row className="col-item course-requisite">
               <h3>Course Rating</h3>
 
@@ -166,7 +174,7 @@ class CourseDescriptionPage extends Component {
                 Submit
               </button>
             </Row>
-          }
+          ) : null}
         </Container>
       </div>
     );

@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import axios from "../axiosInstance/AxiosInstance";
 import Result from "./Results";
+import Spinner from "./Spinner";
 import "./css/Result.css";
 import Label from "./Label";
 import "./css/styles.css";
@@ -10,6 +11,7 @@ class SearchResultDisplay extends Component {
     super();
     this.state = {
       input: "",
+      dispSpinner: false,
       results: [],
     };
   }
@@ -24,6 +26,7 @@ class SearchResultDisplay extends Component {
   };
 
   getData = (input) => {
+    this.setState({ dispSpinner: true});
     axios.get(`/courses?search=${input}`).then((res) => {
       if (res.status === 200) {
         this.setState({ results: [] });
@@ -51,11 +54,14 @@ class SearchResultDisplay extends Component {
       } else if (res.status === 500) {
         alert("System Error. Please refresh");
       }
+      this.setState({dispSpinner: false});
     });
   };
 
   render() {
-    return (
+    return this.state.dispSpinner ? (
+      <Spinner />
+    ) : (
       <div className="SearchQuery">
         <div style={{ marginTop: "10%" }}>
           <h1> Education Pathways</h1>

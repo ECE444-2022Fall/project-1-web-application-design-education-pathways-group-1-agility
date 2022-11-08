@@ -96,7 +96,6 @@ router.patch("/courses/ratings/:id", async (req, res) => {
       (course.RatingNum + 1);
     course.RatingNum = course.RatingNum + 1;
     await course.save();
-    console.log(course);
     res.send(course);
   } catch (err) {
     res.status(400).send(err);

@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import "./css/course-description.css";
 import "bootstrap/dist/css/bootstrap.css";
 import Container from "react-bootstrap/Container";
+import ReactStars from "react-rating-stars-component";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import axios from "../axiosInstance/AxiosInstance";
@@ -23,6 +24,8 @@ class CourseDescriptionPage extends Component {
       prerequisites: "",
       corequisites: "",
       exclusions: "",
+      rating: 0,
+      userRating: 0,
     };
   }
 
@@ -36,6 +39,7 @@ class CourseDescriptionPage extends Component {
       this.setState({ prerequisites: res.data["Pre-requisites"].join(", ") });
       this.setState({ corequisites: res.data["Corequisite"].join(", ") });
       this.setState({ exclusions: res.data["Exclusion"].join(", ") });
+      this.setState({ rating: res.data.Rating });
 
       const syllabus_link = (() => {
         if (this.state.course_code.slice(0, 3) !== "ECE") {
@@ -63,6 +67,23 @@ class CourseDescriptionPage extends Component {
     }
   };
 
+  onRatingChange = (rating) => {
+    console.log(rating);
+    this.setState({ userRating: rating });
+  };
+
+  submitUserRating = () => {
+    if (this.state.userRating) {
+      axios
+        .patch(`/courses/ratings/${this.props.match.params.id}`, {
+          Rating: this.state.userRating,
+        })
+        .then((res) => {
+          this.setState({ rating: res.data.Rating });
+        });
+    }
+  };
+
   render() {
     return (
       <div className="page-content">
@@ -73,6 +94,18 @@ class CourseDescriptionPage extends Component {
                 {this.state.course_code} : {this.state.course_name}
               </h1>
             </Col>
+            {this.state.rating ? (
+              <Col>
+                <ReactStars
+                  edit={false}
+                  classNames={"col-name-course-rating"}
+                  count={5}
+                  activeColor={"#1C3E6E"}
+                  size={30}
+                  value={this.state.rating}
+                />
+              </Col>
+            ) : null}
           </Row>
           <Row>
             <Col className="col-item">
@@ -116,6 +149,24 @@ class CourseDescriptionPage extends Component {
               </Col>
             </Row>
           </Row>
+          {
+            <Row className="col-item course-requisite">
+              <h3>Course Rating</h3>
+
+              <ReactStars
+                classNames={"col-ratings"}
+                edit={true}
+                count={5}
+                onChange={this.onRatingChange}
+                activeColor={"#1C3E6E"}
+                size={40}
+                value={this.state.userRating}
+              />
+              <button className="rate-button" onClick={this.submitUserRating}>
+                Submit
+              </button>
+            </Row>
+          }
         </Container>
       </div>
     );

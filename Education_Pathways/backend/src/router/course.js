@@ -87,6 +87,22 @@ router.get("/courses/:id", async (req, res) => {
   }
 });
 
+router.patch("/courses/ratings/:id", async (req, res) => {
+  try {
+    const course = await Course.findById(req.params.id);
+    if (!course || !req.body.Rating) return res.status(404).send();
+    course.Rating =
+      (course.RatingNum * course.Rating + req.body.Rating) /
+      (course.RatingNum + 1);
+    course.RatingNum = course.RatingNum + 1;
+    await course.save();
+    console.log(course);
+    res.send(course);
+  } catch (err) {
+    res.status(400).send(err);
+  }
+});
+
 router.patch("/courses/:id", async (req, res) => {
   try {
     const course = await Course.findByIdAndUpdate(req.params.id, req.body, {

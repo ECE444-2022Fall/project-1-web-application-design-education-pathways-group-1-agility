@@ -23,6 +23,10 @@ p {
   padding-bottom: 3%;
 }
 
+.course-title h1{
+  text-align: left;
+}
+
 .col-item {
   background-color: white;
   border-radius: 15px;
@@ -78,14 +82,14 @@ p {
 
 .syllabus-link {
   margin-top: 2%;
-    border-radius: 15px;
-    background-color: #1C3E6E;
-    color: white;
-    width: 8em;
-    height: 3em;
-    border: none;
-    font-size: 1.2em;
-    text-align: center;
+  border-radius: 15px;
+  background-color: #1C3E6E;
+  color: white;
+  width: 8em;
+  height: 3em;
+  border: none;
+  font-size: 1.2em;
+  text-align: center;
 }
 
 .form {
@@ -118,4 +122,28 @@ p {
   margin-left: 5%;
   justify-content: center;
   margin-bottom: 2%;
+}
+
+.col-ratings{
+  margin-top: 10px;
+  margin-left: 47%;
+  margin-bottom: 10px;
+}
+
+.col-name-course-rating{
+  margin-top: 3px;
+  margin-left: 50%;
+}
+
+.rate-button {
+  margin-top: 20px;
+  border-radius: 15px;
+  background-color: #1C3E6E;
+  color: white;
+  width: 7em !important;
+  height: 2em;
+  border: none;
+  font-size: 1.2em;
+  text-align: center;
+  margin-left: 49%;
 }

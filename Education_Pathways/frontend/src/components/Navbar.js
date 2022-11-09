@@ -3,18 +3,17 @@ import "./css/navbar.css";
 import "bootstrap/dist/css/bootstrap.css";
 import logo from "./img/logo.png";
 import { Navbar, Nav } from "react-bootstrap";
-import {
-  BrowserRouter as Router,
-  Route,
-  Switch,
-  Link,
-} from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
 // import LogIn from "./LogIn.jsx";
 import CourseDescriptionPage from "./CourseDescription";
 // import Wishlist from './Wishlist';
 // import SignUp from './SignUp'
 import SearchResultDisplay from "./ResultDisplay";
 import EditCourseDescription from "./EditCourseDescription";
+
+if (JSON.parse(localStorage.getItem("timetable")) === null) {
+  localStorage.setItem("timetable", JSON.stringify([]));
+}
 
 export default class NavbarComp extends Component {
   constructor(props) {
@@ -36,6 +35,12 @@ export default class NavbarComp extends Component {
     this.setState({ username: "" });
   };
 
+  getTimeTable = () => {
+    console.log("get timetable");
+    let timetable = JSON.parse(localStorage.getItem("timetable"));
+    console.log(timetable);
+  };
+
   render() {
     return (
       <Router>
@@ -53,6 +58,9 @@ export default class NavbarComp extends Component {
               <Nav>
                 <Nav.Link as={Link} to="/about">
                   About Us
+                </Nav.Link>
+                <Nav.Link as={Link} to="/time_table">
+                  Time Table
                 </Nav.Link>
 
                 {/* <Nav.Link href="/search" style={{ color: "white", display: "inline" }}>
@@ -109,6 +117,28 @@ export default class NavbarComp extends Component {
               render={(props) => <CourseDescriptionPage {...props} />}
             ></Route>
             <Route path="/edit/:id" component={EditCourseDescription}></Route>
+            <Route path="/time_table">
+              <div className="body_text">
+                <table>
+                  <tr>
+                    <th>Course Code</th>
+                    <th>Semester</th>
+                    <th>Year</th>
+                  </tr>
+                  {JSON.parse(localStorage.getItem("timetable")).map(
+                    (val, key) => {
+                      return (
+                        <tr key={key}>
+                          <td>{val.course_code}</td>
+                          <td>{val.semester}</td>
+                          <td>{val.year}</td>
+                        </tr>
+                      );
+                    }
+                  )}
+                </table>
+              </div>
+            </Route>
             <Route path="/">
               <SearchResultDisplay />
             </Route>

@@ -269,8 +269,8 @@ test("Should update course for admin", async () => {
   const course = await Course.findOne({ Code: "ECE344H1" });
   const newCode = "ECE355";
   await request(app)
-    .patch(/courses/${course._id})
-    .set("Authorization", Bearer ${loginToken})
+    .patch(`/courses/${course._id}`)
+    .set("Authorization", `Bearer ${loginToken}`)
     .send({ Code: newCode })
     .expect(200);
   const updatedCourse = await Course.findById(course._id);
@@ -282,7 +282,7 @@ test("Should update course for admin", async () => {
 test("Should fail to update course without credentials", async () => {
   const course = await Course.findOne({ Code: "ARC354Y1"});
   await request(app)
-    .patch(/courses/${course._id})
+    .patch(`/courses/${course._id}`)
     .send({ Code: "ECE355" })
     .expect(401);
 });

@@ -92,6 +92,16 @@ p {
   text-align: center;
 }
 
+.add-course-to-timetable-link {
+  border-radius: 15px;
+  background-color: #1C3E6E;
+  color: white;
+  border: none;
+  font-size: 1.2em;
+  text-align: center;
+  padding: 15px 15px;
+}
+
 .form {
   display: flex;
   flex-direction: column;
@@ -157,4 +167,20 @@ p {
   font-size: 1.2em;
   text-align: center;
   margin-left: 49%;
+}
+
+.select-wrapper{
+  border-radius:36px;
+  display:inline-block;
+  overflow:hidden;
+  background: white;
+  border:1px solid #cccccc;
+  padding: 10px;
+}
+.select-box{
+  width:140px;
+  height:40px;
+  border:0px;
+  outline:none;
+  padding: 10px;
 }

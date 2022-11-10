@@ -104,12 +104,12 @@ class SearchResultDisplay extends Component {
                 .concat("&department=")
                 .concat(this.state.department.replace(/&/g, "%26"));
         }
-        if (this.state.minLevel !== "") {
+        if (this.state.minLevel !== -1) {
             getRequestURL = getRequestURL
                 .concat("&minLevel=")
                 .concat(this.state.minLevel);
         }
-        if (this.state.maxLevel !== "") {
+        if (this.state.maxLevel !== -1) {
             getRequestURL = getRequestURL
                 .concat("&maxLevel=")
                 .concat(this.state.maxLevel);
@@ -155,7 +155,10 @@ class SearchResultDisplay extends Component {
                     }
                 } else if (res.status === 500) {
                     alert("System Error. Please refresh");
+                } else if (res.status === 404) {
+                    alert("404 Error. Results not found");
                 }
+                
                 this.setState({dispSpinner: false});
             });
     };

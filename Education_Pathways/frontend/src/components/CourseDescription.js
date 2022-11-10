@@ -7,6 +7,7 @@ import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import axios from "../axiosInstance/AxiosInstance";
 import Spinner from "./Spinner";
+import { Link } from "react-router-dom";
 
 class CourseDescriptionPage extends Component {
   constructor(props) {
@@ -139,6 +140,7 @@ class CourseDescriptionPage extends Component {
           <Row className="col-item course-description">
             <h3>Course Description</h3>
             <p>{this.state.course_description}</p>
+            <Link to={`/edit/${this.props.match.params.id}`} state={{ id: this.props.match.params.id }} ><button className={"syllabus-link"} >Edit</button></Link>
           </Row>
           <Row className="col-item course-requisite">
             <Row>

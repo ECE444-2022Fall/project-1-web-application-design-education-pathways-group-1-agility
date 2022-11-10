@@ -9,6 +9,7 @@ import CourseDescriptionPage from "./CourseDescription";
 // import Wishlist from './Wishlist';
 // import SignUp from './SignUp'
 import SearchResultDisplay from "./ResultDisplay";
+import EditCourseDescription from "./EditCourseDescription";
 
 export default class NavbarComp extends Component {
   constructor(props) {
@@ -102,6 +103,7 @@ export default class NavbarComp extends Component {
               path="/courseDetails/:id"
               render={(props) => <CourseDescriptionPage {...props} />}
             ></Route>
+            <Route path="/edit/:id" component={EditCourseDescription}></Route>
             <Route path="/">
               <SearchResultDisplay />
             </Route>

@@ -10,6 +10,7 @@ import CourseDescriptionPage from "./CourseDescription";
 // import SignUp from './SignUp'
 import SearchResultDisplay from "./ResultDisplay";
 import EditCourseDescription from "./EditCourseDescription";
+import Compare from "./Compare"
 
 export default class NavbarComp extends Component {
   constructor(props) {
@@ -48,6 +49,9 @@ export default class NavbarComp extends Component {
               <Nav>
                 <Nav.Link as={Link} to="/about">
                   About Us
+                </Nav.Link>
+                <Nav.Link as={Link} to="/compare">
+                  Compare Courses
                 </Nav.Link>
 
                 {/* <Nav.Link href="/search" style={{ color: "white", display: "inline" }}>
@@ -98,6 +102,16 @@ export default class NavbarComp extends Component {
             <Route path="/search">
               <SearchResultDisplay />
             </Route>
+
+            <Route 
+            path="/compare"
+             
+            >
+              <Compare></Compare>
+              
+            </Route>
+            
+
             <Route
               exact
               path="/courseDetails/:id"

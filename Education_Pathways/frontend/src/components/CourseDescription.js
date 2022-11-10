@@ -70,6 +70,7 @@ class CourseDescriptionPage extends Component {
 
     var course = {
       course_code: this.state.course_code,
+      course_name: this.state.course_name,
       semester: this.selectSemester.value,
       year: this.selectYear.value,
     };
@@ -186,11 +187,11 @@ class CourseDescriptionPage extends Component {
                  ref={(input) => (this.selectYear = input)}
                   className="select-box"
                 >
-                  <option value={this.state.currentYear}>{this.state.currentYear}</option>
-                  <option value={this.state.currentYear+1}>{this.state.currentYear+1}</option>
-                  <option value={this.state.currentYear+2}>{this.state.currentYear+2}</option>
-                  <option value={this.state.course_codecurrentYear+3}>{this.state.currentYear+3}</option>
-                  <option value={this.state.currentYear+4}>{this.state.currentYear+4}</option>
+                  <option value={String(this.state.currentYear)}>{this.state.currentYear}</option>
+                  <option value={String(this.state.currentYear+1)}>{this.state.currentYear+1}</option>
+                  <option value={String(this.state.currentYear+2)}>{this.state.currentYear+2}</option>
+                  <option value={String(this.state.course_codecurrentYear+3)}>{this.state.currentYear+3}</option>
+                  <option value={String(this.state.currentYear+4)}>{this.state.currentYear+4}</option>
                 </select>
               </div>
             </Col>

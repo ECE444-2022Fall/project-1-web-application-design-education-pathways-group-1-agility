@@ -84,6 +84,11 @@ class EditCourseDesc extends Component {
       <Spinner />
     ) : (
       <div>
+        <Link to={`/courseDetails/${this.props.match.params.id}`}>
+          <button id={"form-back-button"} className={"syllabus-link"}>
+            Back
+          </button>
+        </Link>
         <h1 style={{ marginBottom: "2.5%" }}>
           {this.state.course_code}: {this.state.course_name}
         </h1>

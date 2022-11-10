@@ -8,7 +8,6 @@ import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
 import CourseDescriptionPage from "./CourseDescription";
 // import Wishlist from './Wishlist';
 // import SignUp from './SignUp'
-import EditCourseDescription from "./EditCourseDescription";
 import SearchResultDisplay from "./ResultDisplay";
 
 export default class NavbarComp extends Component {
@@ -103,7 +102,6 @@ export default class NavbarComp extends Component {
               path="/courseDetails/:id"
               render={(props) => <CourseDescriptionPage {...props} />}
             ></Route>
-            <Route path="/edit/:id" component={EditCourseDescription}></Route>
             <Route path="/">
               <SearchResultDisplay />
             </Route>

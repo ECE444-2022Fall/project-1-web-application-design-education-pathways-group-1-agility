@@ -1,6 +1,8 @@
 const request = require("supertest");
+const bcrypt = require("bcryptjs");
 const app = require("../src/app.js");
 const Course = require("../src/models/courses.js");
+const User = require("../src/models/users");
 
 const course1 = {
   Code: "ECE344H1",
@@ -56,11 +58,36 @@ const course3 = {
   MinorsOutcomes: [],
 };
 
+const testAdmin = {
+  email: "test.admin@gmail.com",
+  password: "testadminpassword",
+};
+
 beforeAll(async () => {
   await Course.deleteMany();
+  await User.deleteMany();
   await new Course(course1).save();
   await new Course(course2).save();
   await new Course(course3).save();
+  const user = {...testAdmin}
+  user.password = await bcrypt.hash(user.password, 8);
+  await new User(user).save();
+});
+
+test("Should test if user login works", async () => {
+  const response = await request(app)
+    .post("/users/login")
+    .send(testAdmin)
+    .expect(200);
+  expect(response.body.token).not.toBeUndefined();
+});
+
+test("Should not login user with invalid credentials", async () => {
+  const response = await request(app)
+    .post("/users/login")
+    .send({ email: testAdmin.email, password: "Wrong password" })
+    .expect(401);
+  expect(response.body.token).toBeUndefined();
 });
 
 test("Should get all the courses", async () => {

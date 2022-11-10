@@ -1,9 +1,29 @@
 .left_container{
     border: 1px solid black;
+    width: 46%;
+    float: right;
+    display: inline-block;
+    padding: 10px;
+    margin-right: 2%;
+    border-radius: 15px;
+
 }
 .right_container{
     border: 1px solid black;
+    border-radius: 15px;
+    width: 46%;
+    float: right;
+    display: inline-block;
+    padding: 10px;
+    margin-right: 2%
+
 }
 .search_container{
     border: 1px solid black;
+}
+
+.close{
+    border-radius: 30%;
+    float: right;
+    display: inline-block;
 }

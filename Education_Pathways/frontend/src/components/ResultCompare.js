@@ -27,20 +27,11 @@ class ResultCompare extends Component{
     
     print(this.state.department)
     print(this.state.description)
-    if (this.props.course1 === {}){
+    if (this.props.course1.length === 0){
       const newCourse1 = [this.state.course_id, this.state.course_code, this.state.course_name, this.state.course_department
         ,this.state.course_faculty]
       this.props.setCourse1(newCourse1)
-      // const newCourse1 = {
-      //   "course_id": this.state.course_id,
-      //   "coourse_code": this.state.course_code,
-      //   "course_name": this.state.course_name,
-      //   "course_department": this.state.course_department,
-      //   "course_faculty": this.state.course_faculty
 
-      // }
-
-      //   this.props.setCourse1(newCourse1)
 
         
         
@@ -49,15 +40,6 @@ class ResultCompare extends Component{
       const newCourse2 = [this.state.course_id, this.state.course_code, this.state.course_name, this.state.course_department
         ,this.state.course_faculty]
       this.props.setCourse2(newCourse2)
-      // const newCourse2 = {
-      //   "course_id": this.state.course_id,
-      //   "coourse_code": this.state.course_code,
-      //   "course_name": this.state.course_name,
-      //   "course_department": this.state.course_department,
-      //   "course_faculty": this.state.course_faculty
-
-      // }
-      // this.props.setCourse1(newCourse2)
     }
   }
   

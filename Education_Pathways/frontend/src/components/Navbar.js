@@ -12,6 +12,10 @@ import SearchResultDisplay from "./ResultDisplay";
 import EditCourseDescription from "./EditCourseDescription";
 import Compare from "./Compare"
 
+if (JSON.parse(localStorage.getItem("timetable")) === null) {
+  localStorage.setItem("timetable", JSON.stringify([]));
+}
+
 export default class NavbarComp extends Component {
   constructor(props) {
     super(props);
@@ -32,6 +36,10 @@ export default class NavbarComp extends Component {
     this.setState({ username: "" });
   };
 
+  getTimeTable = () => {
+    return(JSON.parse(localStorage.getItem("timetable")));
+  };
+
   render() {
     return (
       <Router>
@@ -50,8 +58,13 @@ export default class NavbarComp extends Component {
                 <Nav.Link as={Link} to="/about">
                   About Us
                 </Nav.Link>
+
+                <Nav.Link as={Link} to="/time_table">
+                  Time Table
+
                 <Nav.Link as={Link} to="/compare">
                   Compare Courses
+
                 </Nav.Link>
 
                 {/* <Nav.Link href="/search" style={{ color: "white", display: "inline" }}>
@@ -117,6 +130,28 @@ export default class NavbarComp extends Component {
               path="/courseDetails/:id"
               render={(props) => <CourseDescriptionPage {...props} />}
             ></Route>
+            <Route path="/time_table">
+              <div className="body_text">
+                <table>
+                  <tr>
+                    <th>Course Code</th>
+                    <th>Semester</th>
+                    <th>Year</th>
+                  </tr>
+                  {this.getTimeTable().map(
+                    (val, key) => {
+                      return (
+                        <tr key={key}>
+                          <td>{val.course_code}</td>
+                          <td>{val.semester}</td>
+                          <td>{val.year}</td>
+                        </tr>
+                      );
+                    }
+                  )}
+                </table>
+              </div>
+            </Route>
             <Route path="/edit/:id" component={EditCourseDescription}></Route>
             <Route path="/">
               <SearchResultDisplay />

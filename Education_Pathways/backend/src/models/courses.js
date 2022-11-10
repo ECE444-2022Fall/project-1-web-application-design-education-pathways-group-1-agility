@@ -45,7 +45,7 @@ const Course = mongoose.model("Course", {
   "Course Level": {
     type: Number,
     required: true,
-    min: 1,
+    min: 0,
   },
   Campus: {
     type: String,

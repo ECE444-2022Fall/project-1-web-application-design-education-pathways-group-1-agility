@@ -63,10 +63,6 @@ class CourseDescriptionPage extends Component {
   }
 
   saveToTimetableCSV = () => {
-    console.log(this.state.course_code);
-    console.log(this.selectSemester.value);
-    console.log(this.selectYear.value);
-
     let timetable = JSON.parse(localStorage.getItem("timetable"));
 
     var course = {

@@ -36,7 +36,7 @@ export default class NavbarComp extends Component {
   };
 
   getTimeTable = () => {
-    let timetable = JSON.parse(localStorage.getItem("timetable"));
+    return(JSON.parse(localStorage.getItem("timetable")));
   };
 
   render() {
@@ -122,7 +122,7 @@ export default class NavbarComp extends Component {
                     <th>Semester</th>
                     <th>Year</th>
                   </tr>
-                  {JSON.parse(localStorage.getItem("timetable")).map(
+                  {this.getTimeTable().map(
                     (val, key) => {
                       return (
                         <tr key={key}>

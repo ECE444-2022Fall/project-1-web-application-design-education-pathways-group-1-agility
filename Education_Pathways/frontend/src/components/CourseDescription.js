@@ -62,6 +62,26 @@ class CourseDescriptionPage extends Component {
     });
   }
 
+  saveToTimetableCSV = () => {
+    console.log(this.state.course_code);
+    console.log(this.selectSemester.value);
+    console.log(this.selectYear.value);
+
+    let timetable = JSON.parse(localStorage.getItem("timetable"));
+
+    var course = {
+      course_code: this.state.course_code,
+      semester: this.selectSemester.value,
+      year: this.selectYear.value,
+    };
+
+    timetable.push(course);
+
+    localStorage.setItem("timetable", JSON.stringify(timetable));
+
+    window.location.reload();
+  };
+
   openLink = () => {
     const newWindow = window.open(
       this.state.syllabus,
@@ -144,6 +164,27 @@ class CourseDescriptionPage extends Component {
               <h3>Past Tests</h3>
               <button className={"syllabus-link"} onClick={this.openLink}>
                 View
+              </button>
+            </Col>
+          </Row>
+          <Row>
+            <Col className="col-item">
+              <select ref={(input) => (this.selectSemester = input)}>
+                <option value="Fall">Fall</option>
+                <option value="Winter">Winter</option>
+              </select>
+            </Col>
+            <Col className="col-item">
+              <select ref={(input) => (this.selectYear = input)}>
+                <option value="2022">2022</option>
+                <option value="2023">2023</option>
+                <option value="2024">2024</option>
+                <option value="2025">2025</option>
+              </select>
+            </Col>
+            <Col className="col-item">
+              <button onClick={this.saveToTimetableCSV}>
+                Add Course to Time Table
               </button>
             </Col>
           </Row>

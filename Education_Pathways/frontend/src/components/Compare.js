@@ -44,18 +44,53 @@ const Compare = () => {
             <div className="compare_container">
             <div className="right_container">
                 <button className="close" onClick = {() =>{setCourse1([])}}>X</button>
-                {course1 === []? "None" : course1 }
+               
+                <div>
+                     {course1[1]}
+                </div>
+                <div>
+                    {course1[2]}
+                </div>
+                <div>
+                    {course1[3]}
+                </div>
+                <div>
+                    {course1[4]}
+                </div>
+
+                <div>
+                    {course1[0]}
+                </div>
                 
             </div>
             <div className="left_container">
                 <button className="close" onClick = {() =>{setCourse2([])}}>X</button>
-                {course2 === []? "None" : course2 }
+                
+                <div>
+                     {course2[1]}
+                </div>
+                <div>
+                    {course2[2]}
+                </div>
+                <div>
+                    {course2[3]}
+                </div>
+                <div>
+                    {course2[4]}
+                </div>
+
+                <div>
+
+                    {course2[0]}
+                </div>
+
+                </div>
                 
             </div>
             </div>
             
 
-        </div>
+       
 
     )
 }

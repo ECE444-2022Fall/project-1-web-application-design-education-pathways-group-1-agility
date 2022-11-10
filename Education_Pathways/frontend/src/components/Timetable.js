@@ -1,19 +1,19 @@
 import React, { Component } from "react";
 import "./css/navbar.css";
 import "bootstrap/dist/css/bootstrap.css";
-import logo from "./img/logo.png";
-import { Navbar, Nav } from "react-bootstrap";
-import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
-// import LogIn from "./LogIn.jsx";
-import CourseDescriptionPage from "./CourseDescription";
-// import Wishlist from './Wishlist';
-// import SignUp from './SignUp'
-import SearchResultDisplay from "./ResultDisplay";
-import EditCourseDescription from "./EditCourseDescription";
+import { Link } from "react-router-dom";
 
 export default class Timetable extends Component {
   getTimeTable = () => {
     return JSON.parse(localStorage.getItem("timetable"));
+  };
+
+  deleteTimeTableEntry = (removeIdx) => {
+    let tempTimetable = JSON.parse(localStorage.getItem("timetable"));
+    console.log(removeIdx);
+    tempTimetable.splice(removeIdx, 1);
+    localStorage.setItem("timetable", JSON.stringify(tempTimetable));
+    window.location.reload();
   };
 
   render() {
@@ -23,6 +23,7 @@ export default class Timetable extends Component {
           <table className="styled-table">
             <tr>
               <th>Course Code</th>
+              <th>Name</th>
               <th>Semester</th>
               <th>Year</th>
             </tr>
@@ -30,8 +31,19 @@ export default class Timetable extends Component {
               return (
                 <tr key={key}>
                   <td>{val.course_code}</td>
+                  <td>{val.course_name}</td>
                   <td>{val.semester}</td>
                   <td>{val.year}</td>
+                  <td>
+                    <Link>
+                      <img
+                        src={require("./img/remove_icon.png").default}
+                        alt="Edit"
+                        style={{ height: "25px", width: "25px" }}
+                        onClick={() => this.deleteTimeTableEntry(key)}
+                      />
+                    </Link>
+                  </td>
                 </tr>
               );
             })}

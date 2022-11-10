@@ -61,6 +61,8 @@ export default class NavbarComp extends Component {
 
                 <Nav.Link as={Link} to="/time_table">
                   Time Table
+                  </Nav.Link>
+
 
                 <Nav.Link as={Link} to="/compare">
                   Compare Courses

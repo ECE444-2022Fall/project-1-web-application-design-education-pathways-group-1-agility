@@ -118,7 +118,7 @@ class SearchResultDisplay extends Component {
         //Call the API
         axios
             .get(getRequestURL)
-            .then((res) => {
+            .then((res) =>{
                 if (res.status === 200) {
                     this.setState({results: []});
                     console.log(res.data);
@@ -153,14 +153,30 @@ class SearchResultDisplay extends Component {
                     } else {
                         alert("Course not found");
                     }
-                } else if (res.status === 500) {
-                    alert("System Error. Please refresh");
-                } else if (res.status === 404) {
-                    alert("404 Error. Results not found");
                 }
-                
                 this.setState({dispSpinner: false});
-            });
+            })
+            .catch((res) => {
+                if (res.status === 500) {
+                    window.alert("500 Error. Please refresh");
+                } else if (res.status === 404) {
+                    window.alert("404 Error. Results not found");
+                }
+                let result_temp = [];
+                result_temp.push(
+                    <Result
+                        key={""}
+                        course_id={""}
+                        course_code={"No results found."}
+                        course_name={""}
+                        course_faculty={""}
+                        course_department={""}
+                    ></Result>
+                );
+                this.setState({results: result_temp});
+                this.setState({dispSpinner: false});
+
+            })
     };
 
     render() {

@@ -63,6 +63,8 @@ const testAdmin = {
   password: "testadminpassword",
 };
 
+let loginToken = "";
+
 beforeAll(async () => {
   await Course.deleteMany();
   await User.deleteMany();
@@ -80,6 +82,7 @@ test("Should test if user login works", async () => {
     .send(testAdmin)
     .expect(200);
   expect(response.body.token).not.toBeUndefined();
+  loginToken = response.body.token;
 });
 
 test("Should not login user with invalid credentials", async () => {
@@ -259,4 +262,27 @@ test("Should get no course if no match for all criteria ", async () => {
       "/courses?campus=Campus1&department=Department1&faculty=Faculty1&search=ece&minLevel=4"
     )
     .expect(404);
+});
+
+// test if update course works for admin
+test("Should update course for admin", async () => {
+  const course = await Course.findOne({ Code: "ECE344H1" });
+  const newCode = "ECE355";
+  await request(app)
+    .patch(/courses/${course._id})
+    .set("Authorization", Bearer ${loginToken})
+    .send({ Code: newCode })
+    .expect(200);
+  const updatedCourse = await Course.findById(course._id);
+  expect(updatedCourse.Code).toBe(newCode);
+
+});
+
+// test if update course fails without authorization token
+test("Should fail to update course without credentials", async () => {
+  const course = await Course.findOne({ Code: "ARC354Y1"});
+  await request(app)
+    .patch(/courses/${course._id})
+    .send({ Code: "ECE355" })
+    .expect(401);
 });

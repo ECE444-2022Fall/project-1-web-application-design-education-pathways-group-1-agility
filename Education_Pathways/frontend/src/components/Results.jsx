@@ -35,6 +35,7 @@ class Result extends Component{
             </Col>
             <Col>{this.state.department}</Col>
             <Col>{this.state.faculty}</Col>
+            
         </Row>
         </a>
       </Container>

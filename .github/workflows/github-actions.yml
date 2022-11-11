@@ -1,0 +1,63 @@
+name: CI/CD
+run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
+on: 
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+jobs:
+  build-client:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    strategy:
+      matrix:
+        node-version: [14.x]
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Set up Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ matrix.node-version }}
+
+    - name: Install dependencies
+      run:  |
+        cd Education_Pathways
+        cd frontend
+        npm install
+
+
+    - name: Build
+      run:  |
+        cd Education_Pathways
+        cd frontend
+        npm run build
+
+  build-server:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    strategy:
+      matrix:
+        node-version: [14.x]
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Set up Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ matrix.node-version }}
+
+    - name: Install dependencies
+      run:  |
+        cd Education_Pathways
+        cd backend
+        npm install
+
+
+    - name: Build
+      run:  |
+        cd Education_Pathways
+        cd backend
+        npm run dev

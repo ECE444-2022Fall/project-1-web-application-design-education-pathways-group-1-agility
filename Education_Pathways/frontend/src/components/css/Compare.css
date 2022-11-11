@@ -8,6 +8,7 @@
     border-radius: 15px;
     margin-top: 10px;
     box-shadow: 10px 10px 10px grey;
+    margin-top: 40px;
 
 }
 .right_container{
@@ -20,14 +21,25 @@
     padding: 10px;
     margin-right: 2%;
     box-shadow: 10px 10px 10px grey;
+    margin-top: 40px;
 
 }
-.search_container{
-    border: 1px solid black;
-}
+
 
 .close{
     border-radius: 30%;
     float: right;
     display: block;
+}
+
+.compare_line{
+    margin: 20px;
+    height: 45px;
+}
+
+.search_container{
+    margin: 50px;
+    /* border: 2px solid black; */
+    display: inline-block;
+    width: 100%;
 }

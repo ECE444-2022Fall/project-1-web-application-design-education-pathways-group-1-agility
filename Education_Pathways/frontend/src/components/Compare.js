@@ -58,6 +58,62 @@ const Compare = () => {
             <div>
             {/* <CourseDescriptionPage {...props} /> */}
             </div>
+
+            <div className="compare_container">
+            <div className="right_container">
+                <button className="close" onClick = {() =>{setCourse1([])}}>X</button>
+               
+                <div className="compare_line">
+                     {course1[1]}
+                </div>
+                <div className="compare_line"> 
+                    {course1[2]}
+                </div>
+                <div className="compare_line">
+                {course1.length===0 ? <h3>To be added</h3>: course1[3]}
+                </div>
+                <div className="compare_line">
+                    {course1[4]}
+                </div>
+
+                <div className="compare_line">
+                    {course1[0]}
+                </div>
+
+                <div className="compare_line">
+                    {course1.length === 0? null : <button  onClick ={() => {openLink(course1[1])}}>Passed Test</button>}
+                </div>
+                
+            </div>
+            <div className="left_container">
+                <button className="close" onClick = {() =>{setCourse2([])}}>X</button>
+                
+                <div className="compare_line">
+                 {course2[1]}
+                </div>
+                <div className="compare_line">
+                {course2[2]}
+                </div>
+                <div className="compare_line">
+                {course2.length===0 ? <h3>To be added</h3>: course2[3]}
+                </div>
+                <div className="compare_line">
+                {course2[4]}
+                </div>
+
+                <div className="compare_line">
+
+                 {course2[0]}
+                </div>
+                
+                <div  className="compare_line">
+                    {course2.length === 0? null : <button   onClick ={() => {openLink(course2[1])}}>Passed Test</button>}
+                </div>
+
+                </div>
+                
+            </div>
+
             <div className="search_container">
                 <SearchBarCompare 
                 setCourse1 = {setCourse1}
@@ -68,60 +124,8 @@ const Compare = () => {
 
                 />
             </div>
-            <div className="compare_container">
-            <div className="right_container">
-                <button className="close" onClick = {() =>{setCourse1([])}}>X</button>
-               
-                <div>
-                     {course1[1]}
-                </div>
-                <div>
-                    {course1[2]}
-                </div>
-                <div>
-                    {course1[3]}
-                </div>
-                <div>
-                    {course1[4]}
-                </div>
 
-                <div>
-                    {course1[0]}
-                </div>
-
-                <div>
-                    {course1.length === 0? "To be added" : <button  onClick ={() => {openLink(course1[1])}}>Passed Test</button>}
-                </div>
-                
-            </div>
-            <div className="left_container">
-                <button className="close" onClick = {() =>{setCourse2([])}}>X</button>
-                
-                <div>
-                 {course2[1]}
-                </div>
-                <div>
-                {course2[2]}
-                </div>
-                <div>
-                {course2[3]}
-                </div>
-                <div>
-                {course2[4]}
-                </div>
-
-                <div>
-
-                 {course2[0]}
-                </div>
-                
-                <div>
-                    {course2.length === 0? "To be added" : <button  onClick ={() => {openLink(course2[1])}}>Passed Test</button>}
-                </div>
-
-                </div>
-                
-            </div>
+            
             </div>
             
 

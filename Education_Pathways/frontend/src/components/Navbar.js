@@ -10,7 +10,11 @@ import CourseDescriptionPage from "./CourseDescription";
 // import SignUp from './SignUp'
 import SearchResultDisplay from "./ResultDisplay";
 import EditCourseDescription from "./EditCourseDescription";
+
 import Compare from "./Compare"
+
+import Timetable from "./Timetable";
+
 
 if (JSON.parse(localStorage.getItem("timetable")) === null) {
   localStorage.setItem("timetable", JSON.stringify([]));
@@ -37,8 +41,10 @@ export default class NavbarComp extends Component {
   };
 
   getTimeTable = () => {
-    return(JSON.parse(localStorage.getItem("timetable")));
+    return JSON.parse(localStorage.getItem("timetable"));
   };
+
+  deleteTimeTableEntry = () => {};
 
   render() {
     return (
@@ -133,26 +139,7 @@ export default class NavbarComp extends Component {
               render={(props) => <CourseDescriptionPage {...props} />}
             ></Route>
             <Route path="/time_table">
-              <div className="body_text">
-                <table>
-                  <tr>
-                    <th>Course Code</th>
-                    <th>Semester</th>
-                    <th>Year</th>
-                  </tr>
-                  {this.getTimeTable().map(
-                    (val, key) => {
-                      return (
-                        <tr key={key}>
-                          <td>{val.course_code}</td>
-                          <td>{val.semester}</td>
-                          <td>{val.year}</td>
-                        </tr>
-                      );
-                    }
-                  )}
-                </table>
-              </div>
+              <Timetable />
             </Route>
             <Route path="/edit/:id" component={EditCourseDescription}></Route>
             <Route path="/">

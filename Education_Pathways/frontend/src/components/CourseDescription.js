@@ -27,6 +27,7 @@ class CourseDescriptionPage extends Component {
       userRating: 0,
       dispSpinner: false,
       dispRating: false,
+      currentYear: new Date().getFullYear()
     };
   }
 
@@ -62,11 +63,14 @@ class CourseDescriptionPage extends Component {
     });
   }
 
+  
+
   saveToTimetableCSV = () => {
     let timetable = JSON.parse(localStorage.getItem("timetable"));
 
     var course = {
       course_code: this.state.course_code,
+      course_name: this.state.course_name,
       semester: this.selectSemester.value,
       year: this.selectYear.value,
     };
@@ -165,22 +169,39 @@ class CourseDescriptionPage extends Component {
           </Row>
           <Row>
             <Col className="col-item">
-              <select ref={(input) => (this.selectSemester = input)}>
-                <option value="Fall">Fall</option>
-                <option value="Winter">Winter</option>
-              </select>
+              <h3>Semester</h3>
+              <div className="select-wrapper">
+                <select
+                  ref={(input) => (this.selectSemester = input)}
+                  className="select-box"
+                >
+                  <option value="Fall">Fall</option>
+                  <option value="Winter">Winter</option>
+                </select>
+              </div>
             </Col>
             <Col className="col-item">
-              <select ref={(input) => (this.selectYear = input)}>
-                <option value="2022">2022</option>
-                <option value="2023">2023</option>
-                <option value="2024">2024</option>
-                <option value="2025">2025</option>
-              </select>
+              <h3>Year</h3>
+              <div className="select-wrapper">
+                <select
+                 ref={(input) => (this.selectYear = input)}
+                  className="select-box"
+                >
+                  <option value={String(this.state.currentYear)}>{this.state.currentYear}</option>
+                  <option value={String(this.state.currentYear+1)}>{this.state.currentYear+1}</option>
+                  <option value={String(this.state.currentYear+2)}>{this.state.currentYear+2}</option>
+                  <option value={String(this.state.course_codecurrentYear+3)}>{this.state.currentYear+3}</option>
+                  <option value={String(this.state.currentYear+4)}>{this.state.currentYear+4}</option>
+                </select>
+              </div>
             </Col>
             <Col className="col-item">
-              <button onClick={this.saveToTimetableCSV}>
-                Add Course to Time Table
+              <h3>Save Course</h3>
+              <button
+                className={"add-course-to-timetable-link"}
+                onClick={this.saveToTimetableCSV}
+              >
+                Add to Timetable
               </button>
             </Col>
           </Row>

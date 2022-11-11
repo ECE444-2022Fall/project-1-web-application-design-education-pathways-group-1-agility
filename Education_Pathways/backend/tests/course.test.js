@@ -286,3 +286,24 @@ test("Should fail to update course without credentials", async () => {
     .send({ Code: "ECE355" })
     .expect(401);
 });
+
+// check if get back departments correctly - NISSAR ISHTIAK LAB 6 TDD
+test("Should get back all course departments", async () => {
+  const response = await request(app).get("/courses/departments").expect(200);
+  expect(response.body.length).toBe(2);
+  expect(response.body).toMatchObject(["Department1", "Department2"]);
+});
+
+// check if get back faculties correctly - NISSAR ISHTIAK LAB 6 TDD
+test("Should get back all course faculties", async () => {
+  const response = await request(app).get("/courses/faculties").expect(200);
+  expect(response.body.length).toBe(2);
+  expect(response.body).toMatchObject(["Faculty1", "Faculty2"]);
+});
+
+// check if get back campuses correctly - NISSAR ISHTIAK LAB 6 TDD
+test("Should get back all course campuses", async () => {
+  const response = await request(app).get("/courses/campuses").expect(200);
+  expect(response.body.length).toBe(2);
+  expect(response.body).toMatchObject(["Campus1", "Campus2"]);
+});

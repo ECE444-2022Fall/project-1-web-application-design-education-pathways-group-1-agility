@@ -22,7 +22,34 @@ const Compare = () => {
 
     const [course2, setCourse2] = useState([]);
 
-    
+    const  openLink = (course) => {
+        const newWindow = window.open(
+            syllabus_link(course),
+          "_blacnk",
+          "noopener,noreferrer"
+        );
+        console.log(newWindow)
+        if (newWindow) {
+          newWindow.opener = null;
+        }
+      };
+
+      const syllabus_link = ((course) => {
+        if (typeof course !== "string"){
+            console.log("not string!")
+            return
+        }
+        else if (course.slice(0, 3) !== "ECE") {
+          return (
+            "https://exams-library-utoronto-ca.myaccess.library.utoronto.ca/simple-search?query=" +
+            course
+          );
+        }
+
+        return "http://courses.skule.ca/search/" + course;
+      });
+
+      
     
 
 
@@ -46,20 +73,24 @@ const Compare = () => {
                 <button className="close" onClick = {() =>{setCourse1([])}}>X</button>
                
                 <div>
-                     {course1[1]}
+                    Code: {course1[1]}
                 </div>
                 <div>
-                    {course1[2]}
+                   Name: {course1[2]}
                 </div>
                 <div>
-                    {course1[3]}
+                   Department: {course1[3]}
                 </div>
                 <div>
-                    {course1[4]}
+                   Faculty: {course1[4]}
                 </div>
 
                 <div>
-                    {course1[0]}
+                   Key: {course1[0]}
+                </div>
+
+                <div>
+                    <button  onClick ={() => {openLink(course1[1])}}>Passed Test</button>
                 </div>
                 
             </div>
@@ -67,21 +98,25 @@ const Compare = () => {
                 <button className="close" onClick = {() =>{setCourse2([])}}>X</button>
                 
                 <div>
-                     {course2[1]}
+                Code:  {course2[1]}
                 </div>
                 <div>
-                    {course2[2]}
+                Name: {course2[2]}
                 </div>
                 <div>
-                    {course2[3]}
+                Department: {course2[3]}
                 </div>
                 <div>
-                    {course2[4]}
+                Faculty: {course2[4]}
                 </div>
 
                 <div>
 
-                    {course2[0]}
+                Key: {course2[0]}
+                </div>
+                
+                <div>
+                    <button  onClick ={() => {openLink(course2[1])}}>Passed Test</button>
                 </div>
 
                 </div>

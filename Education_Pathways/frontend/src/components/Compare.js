@@ -73,24 +73,24 @@ const Compare = () => {
                 <button className="close" onClick = {() =>{setCourse1([])}}>X</button>
                
                 <div>
-                    Code: {course1[1]}
+                     {course1[1]}
                 </div>
                 <div>
-                   Name: {course1[2]}
+                    {course1[2]}
                 </div>
                 <div>
-                   Department: {course1[3]}
+                    {course1[3]}
                 </div>
                 <div>
-                   Faculty: {course1[4]}
-                </div>
-
-                <div>
-                   Key: {course1[0]}
+                    {course1[4]}
                 </div>
 
                 <div>
-                    <button  onClick ={() => {openLink(course1[1])}}>Passed Test</button>
+                    {course1[0]}
+                </div>
+
+                <div>
+                    {course1.length === 0? "To be added" : <button  onClick ={() => {openLink(course1[1])}}>Passed Test</button>}
                 </div>
                 
             </div>
@@ -98,25 +98,25 @@ const Compare = () => {
                 <button className="close" onClick = {() =>{setCourse2([])}}>X</button>
                 
                 <div>
-                Code:  {course2[1]}
+                 {course2[1]}
                 </div>
                 <div>
-                Name: {course2[2]}
+                {course2[2]}
                 </div>
                 <div>
-                Department: {course2[3]}
+                {course2[3]}
                 </div>
                 <div>
-                Faculty: {course2[4]}
+                {course2[4]}
                 </div>
 
                 <div>
 
-                Key: {course2[0]}
+                 {course2[0]}
                 </div>
                 
                 <div>
-                    <button  onClick ={() => {openLink(course2[1])}}>Passed Test</button>
+                    {course2.length === 0? "To be added" : <button  onClick ={() => {openLink(course2[1])}}>Passed Test</button>}
                 </div>
 
                 </div>

@@ -5,7 +5,6 @@ import "./css/Result.css";
 
 const Compare = () => {
   const [course1, setCourse1] = useState([]);
-
   const [course2, setCourse2] = useState([]);
 
   const openLink = (course) => {
@@ -36,7 +35,6 @@ const Compare = () => {
 
   return (
     <div>
-      <div>{/* <CourseDescriptionPage {...props} /> */}</div>
 
       <div className="compare_container">
         <div className="right_container">
@@ -62,10 +60,6 @@ const Compare = () => {
           </div>
 
           <div className="description">{course1[5]}</div>
-
-          {/* <div className="compare_line">
-                    {course1[0]}
-                </div> */}
 
           <div className="compare_line">
             {course1.length === 0 ? null : (
@@ -103,12 +97,6 @@ const Compare = () => {
           </div>
 
           <div className="description">{course2[5]}</div>
-
-          {/* <div className="compare_line">
-
-                 {course2[0]}
-                </div> */}
-
           <div className="compare_line">
             {course2.length === 0 ? null : (
               <button

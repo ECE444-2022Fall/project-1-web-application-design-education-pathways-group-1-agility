@@ -100,15 +100,6 @@ class SearchBarCompare extends Component {
           </form>
         </div>
         <div className={"search-result-display"}>{this.state.results}</div>
-        {/*         
-        <button onClick={()=>{
-          console.log(this.props.course1)
-          console.log(this.props.course2)
-
-          console.log("")
-        }}>
-          Check
-        </button> */}
       </div>
     );
   }

@@ -190,7 +190,7 @@ class CourseDescriptionPage extends Component {
                   <option value={String(this.state.currentYear)}>{this.state.currentYear}</option>
                   <option value={String(this.state.currentYear+1)}>{this.state.currentYear+1}</option>
                   <option value={String(this.state.currentYear+2)}>{this.state.currentYear+2}</option>
-                  <option value={String(this.state.course_codecurrentYear+3)}>{this.state.currentYear+3}</option>
+                  <option value={String(this.state.currentYear+3)}>{this.state.currentYear+3}</option>
                   <option value={String(this.state.currentYear+4)}>{this.state.currentYear+4}</option>
                 </select>
               </div>

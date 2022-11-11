@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import "./css/navbar.css";
+import "./css/timetable.css";
 import "bootstrap/dist/css/bootstrap.css";
 import { Link } from "react-router-dom";
 
@@ -10,15 +10,44 @@ export default class Timetable extends Component {
 
   deleteTimeTableEntry = (removeIdx) => {
     let tempTimetable = JSON.parse(localStorage.getItem("timetable"));
-    console.log(removeIdx);
     tempTimetable.splice(removeIdx, 1);
     localStorage.setItem("timetable", JSON.stringify(tempTimetable));
     window.location.reload();
   };
 
+  downloadCSV = () => {
+    let data = JSON.parse(localStorage.getItem("timetable"));
+    const csvRows = [];
+    const headers = Object.keys(data[0]);
+
+    csvRows.push(headers.join(","));
+
+    for (const row of data) {
+      const values = headers.map((header) => {
+        const val = row[header];
+        return `"${val}"`;
+      });
+
+      csvRows.push(values.join(","));
+    }
+
+    let csv = csvRows.join("\n");
+
+    var downloadLink = document.createElement("a");
+    var blob = new Blob(["\ufeff", csv]);
+    var url = URL.createObjectURL(blob);
+    downloadLink.href = url;
+    downloadLink.download = "data.csv";
+
+    document.body.appendChild(downloadLink);
+    downloadLink.click();
+    document.body.removeChild(downloadLink);
+  };
+
   render() {
     return (
       <div className="body_text">
+        <h1>Your Saved Courses</h1>
         <div className="timetable-page">
           <table className="styled-table">
             <tr>
@@ -48,6 +77,12 @@ export default class Timetable extends Component {
               );
             })}
           </table>
+          <button
+            onClick={this.downloadCSV}
+            className="download-timetable-button"
+          >
+            Download CSV
+          </button>
         </div>
       </div>
     );

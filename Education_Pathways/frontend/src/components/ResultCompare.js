@@ -3,7 +3,6 @@ import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import './css/Result.css'
-const print = console.log
 
 class ResultCompare extends Component{
 
@@ -15,7 +14,8 @@ class ResultCompare extends Component{
       course_name: this.props.course_name,
       department: this.props.course_department,
       faculty: this.props.course_faculty,
-      description: this.props.description
+      description: this.props.course_description,
+      pre: this.props.course_pre
     };
   }
 
@@ -25,11 +25,9 @@ class ResultCompare extends Component{
 
   addCourse = () => {
     
-    print(this.state.department)
-    print(this.state.description)
     if (this.props.course1.length === 0){
       const newCourse1 = [this.state.course_id, this.state.course_code, this.state.course_name, this.state.department
-        ,this.state.faculty]
+        ,this.state.faculty, this.state.description, this.state.pre]
       this.props.setCourse1(newCourse1)
 
 
@@ -38,7 +36,7 @@ class ResultCompare extends Component{
     }
     else{
       const newCourse2 = [this.state.course_id, this.state.course_code, this.state.course_name, this.state.department
-        ,this.state.faculty]
+        ,this.state.faculty, this.state.description, this.state.pre]
       this.props.setCourse2(newCourse2)
     }
   }
@@ -58,7 +56,7 @@ class ResultCompare extends Component{
             </Col>
             <Col>{this.state.department}</Col>
             <Col>{this.state.faculty}</Col>
-            <Col><button onClick={this.addCourse}>Add</button></Col>
+            <Col><button style={{borderRadius: "6px"}} onClick={this.addCourse}>Add</button></Col>
         </Row>
         </div>
       </Container>

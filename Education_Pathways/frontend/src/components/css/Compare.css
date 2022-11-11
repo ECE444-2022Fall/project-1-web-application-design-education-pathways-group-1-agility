@@ -34,7 +34,18 @@
 
 .compare_line{
     margin: 20px;
-    height: 45px;
+    height: 40px;
+}
+.compare_Code{
+    margin: 20px;
+    height: 40px;
+    font-size: larger;
+}
+
+.description{
+    margin: 20px;
+    font-size:small;
+    min-height: 200px
 }
 
 .search_container{

@@ -63,7 +63,7 @@ const Compare = () => {
             <div className="right_container">
                 <button className="close" onClick = {() =>{setCourse1([])}}>X</button>
                
-                <div className="compare_line">
+                <div className="compare_Code">
                      {course1[1]}
                 </div>
                 <div className="compare_line"> 
@@ -77,18 +77,29 @@ const Compare = () => {
                 </div>
 
                 <div className="compare_line">
-                    {course1[0]}
+                    {/* prereq */}
+                    {course1.length === 0? null: "Pre-requisites: " + course1[6]}
                 </div>
 
+                <div className="description">
+                    {course1[5]}
+                </div>
+
+                
+
+                {/* <div className="compare_line">
+                    {course1[0]}
+                </div> */}
+
                 <div className="compare_line">
-                    {course1.length === 0? null : <button  onClick ={() => {openLink(course1[1])}}>Passed Test</button>}
+                    {course1.length === 0? null : <button style={{borderRadius: "6px"}} onClick ={() => {openLink(course1[1])}}>Past Test</button>}
                 </div>
                 
             </div>
             <div className="left_container">
                 <button className="close" onClick = {() =>{setCourse2([])}}>X</button>
                 
-                <div className="compare_line">
+                <div className="compare_Code">
                  {course2[1]}
                 </div>
                 <div className="compare_line">
@@ -102,12 +113,21 @@ const Compare = () => {
                 </div>
 
                 <div className="compare_line">
+                    {/* prereq */}
+                    {course2.length === 0? null: "Pre-requisites: " + course2[6]}
+                </div>
+
+                <div className="description">
+                    {course2[5]}
+                </div>
+
+                {/* <div className="compare_line">
 
                  {course2[0]}
-                </div>
+                </div> */}
                 
                 <div  className="compare_line">
-                    {course2.length === 0? null : <button   onClick ={() => {openLink(course2[1])}}>Passed Test</button>}
+                    {course2.length === 0? null : <button style={{borderRadius: "6px"}} onClick ={() => {openLink(course2[1])}}>Past Test</button>}
                 </div>
 
                 </div>

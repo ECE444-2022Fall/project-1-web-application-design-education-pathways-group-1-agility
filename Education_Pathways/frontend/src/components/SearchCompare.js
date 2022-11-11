@@ -32,6 +32,7 @@ class SearchBarCompare extends Component {
         this.setState({ results: [] });
         console.log(res.data);
         if (res.data.length > 0) {
+          
           let len = res.data.length;
           let result_temp = [];
           result_temp.push(<Label></Label>);
@@ -44,7 +45,9 @@ class SearchBarCompare extends Component {
                 course_name={res.data[i].Name}
                 course_faculty={res.data[i].Faculty}
                 course_department={res.data[i].Department}
-                course_description = {res.data[i]["Course Description"]}
+                course_description={res.data[i]["Course Description"]}
+                course_pre={res.data[i]["Pre-requisites"]}
+
                 setCourse1={this.props.setCourse1}
                 setCourse2 = {this.props.setCourse2}
                 course1 = {this.props.course1}
@@ -73,6 +76,7 @@ class SearchBarCompare extends Component {
         <div >
           <form onSubmit={this.handleSubmit} className={"search"}>
             <input
+            key = {"qiao"}
               placeholder={"Search for course code, course name, keyword ..."}
               className={"text-input"}
               type="text"
@@ -83,7 +87,7 @@ class SearchBarCompare extends Component {
           </form>
         </div>
         <div className={"search-result-display"}>{this.state.results}</div>
-        
+{/*         
         <button onClick={()=>{
           console.log(this.props.course1)
           console.log(this.props.course2)
@@ -91,7 +95,7 @@ class SearchBarCompare extends Component {
           console.log("")
         }}>
           Check
-        </button>
+        </button> */}
       </div>
     );
   }

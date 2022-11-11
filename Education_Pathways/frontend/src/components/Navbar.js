@@ -10,7 +10,11 @@ import CourseDescriptionPage from "./CourseDescription";
 // import SignUp from './SignUp'
 import SearchResultDisplay from "./ResultDisplay";
 import EditCourseDescription from "./EditCourseDescription";
+
+import Compare from "./Compare"
+
 import Timetable from "./Timetable";
+
 
 if (JSON.parse(localStorage.getItem("timetable")) === null) {
   localStorage.setItem("timetable", JSON.stringify([]));
@@ -60,8 +64,15 @@ export default class NavbarComp extends Component {
                 <Nav.Link as={Link} to="/about">
                   About Us
                 </Nav.Link>
+
                 <Nav.Link as={Link} to="/time_table">
                   Time Table
+                  </Nav.Link>
+
+
+                <Nav.Link as={Link} to="/compare">
+                  Compare Courses
+
                 </Nav.Link>
 
                 {/* <Nav.Link href="/search" style={{ color: "white", display: "inline" }}>
@@ -112,6 +123,16 @@ export default class NavbarComp extends Component {
             <Route path="/search">
               <SearchResultDisplay />
             </Route>
+
+            <Route 
+            path="/compare"
+             
+            >
+              <Compare></Compare>
+              
+            </Route>
+            
+
             <Route
               exact
               path="/courseDetails/:id"

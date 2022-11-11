@@ -1,0 +1,91 @@
+import React, { Component } from "react";
+import axios from "../axiosInstance/AxiosInstance";
+import Spinner from "./Spinner";
+import "./css/course-description.css";
+import "bootstrap/dist/css/bootstrap.css";
+import { Redirect } from "react-router-dom";
+import { Link } from "react-router-dom";
+
+const parseArr = (value) => {
+  let arr =
+    value.replace(/\s/g, "") === "" ? [] : value.replace(/\s/g, "").split(",");
+  if (arr.length > 0) {
+    while (arr[arr.length - 1] === "") arr.pop();
+  }
+  return arr;
+};
+
+class CoursePageCompare extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      course_code: "",
+      course_name: "",
+      course_description: "",
+      faculty: "",
+      department: "",
+      prerequisites: [],
+      corequisites: [],
+      exclusions: [],
+      dispSpinner: false,
+      editDone: false,
+    };
+  }
+
+  componentDidMount() {
+    axios.get(`courses/${this.props.match.params.id}`).then((res) => {
+      this.setState({ course_code: res.data.Code });
+      this.setState({ course_name: res.data.Name });
+      this.setState({ course_description: res.data["Course Description"] });
+      this.setState({ faculty: res.data.Faculty });
+      this.setState({ department: res.data.Department });
+      this.setState({ prerequisites: res.data["Pre-requisites"] });
+      this.setState({ corequisites: res.data["Corequisite"] });
+      this.setState({ exclusions: res.data["Exclusion"] });
+    });
+  }
+
+  onSubmit = async (event) => {
+    this.setState({ dispSpinner: true });
+    try {
+      const res = await axios.post("/users/login", {
+        email: event.target.username.value,
+        password: event.target.password.value,
+      });
+      const { token } = res.data;
+      localStorage.setItem("access_token", token);
+      const pre_requisite = parseArr(event.target.prerequisites.value);
+      const co_requisite = parseArr(event.target.corequisites.value);
+      const exclusion = parseArr(event.target.exclusions.value);
+
+      await axios.patch(`courses/${this.props.match.params.id}`, {
+        "Course Description": event.target.description.value,
+        Code: event.target.code.value,
+        Name: event.target.name.value,
+        Faculty: event.target.faculty.value,
+        Department: event.target.department.value,
+        "Pre-requisites": pre_requisite,
+        Corequisite: co_requisite,
+        Exclusion: exclusion,
+      });
+      this.setState({ editDone: true });
+    } catch (err) {
+      event.preventDefault();
+      event.target.password.value = "";
+      alert("Unable to update course");
+    }
+    this.setState({ dispSpinner: false });
+  };
+
+  render() {
+    return (
+        <div>
+            {
+                this.state.course_code
+            }
+        </div>
+    )
+  }
+}
+
+export default CoursePageCompare;

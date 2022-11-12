@@ -1,3 +1,8 @@
+/*
+ * Define the structure of user data in the database
+ * Currently, there is only one admin user in the database
+ */
+
 const mongoose = require("mongoose");
 const validator = require("validator");
 

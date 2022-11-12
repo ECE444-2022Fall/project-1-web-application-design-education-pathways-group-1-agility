@@ -1,3 +1,7 @@
+/*
+ * Define the structure of course data in the database
+ */
+
 const mongoose = require("mongoose");
 
 const Course = mongoose.model("Course", {

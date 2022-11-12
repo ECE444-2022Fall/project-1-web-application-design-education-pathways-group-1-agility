@@ -1,3 +1,7 @@
+/*
+ * Define routes on user endpoint
+ */
+
 const express = require("express");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
@@ -5,16 +9,9 @@ const User = require("../models/users.js");
 
 const router = new express.Router();
 
-// router.post("/users", async (req, res) => {
-//   const user = new User(req.body);
-//   user.password = await bcrypt.hash(user.password, 8);
-//   try {
-//     await user.save();
-//     res.status(201).send(user);
-//   } catch (err) {
-//     res.status(400).send(err);
-//   }
-// });
+// Authenticate admin user
+// The provided jwt token will allow
+// admins to access protected course routes
 
 router.post("/users/login", async (req, res) => {
   try {

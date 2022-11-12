@@ -1,3 +1,7 @@
+/*
+ * Test cases
+ */
+
 const request = require("supertest");
 const bcrypt = require("bcryptjs");
 const app = require("../src/app.js");

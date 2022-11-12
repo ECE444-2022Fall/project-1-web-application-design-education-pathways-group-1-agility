@@ -13,7 +13,7 @@ const auth = async (req, res, next) => {
       process.env.JWT_SECRET_KEY
     );
     const user = await User.findById(jwtDecode._id);
-    if (!user) throw new Error();
+    if (!user) throw new Error("Bad auth");
     next();
   } catch (err) {
     res.status(401).send("Bad auth");

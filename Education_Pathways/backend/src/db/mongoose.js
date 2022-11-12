@@ -1,3 +1,7 @@
+/*
+ * Set up mongodb connection
+ */
+
 const mongoose = require("mongoose");
 
 mongoose.connect(process.env.MONGODB_CONNECTION, {

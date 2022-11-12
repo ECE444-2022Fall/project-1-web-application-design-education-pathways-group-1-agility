@@ -1,3 +1,9 @@
+/*
+ * Define all CRUD routes on courses endpoint
+ * Certain routes are protected by auth middleware
+ * This prevents non admin users from modifying the courses database
+ */
+
 const express = require("express");
 const Course = require("../models/courses.js");
 const auth = require("../middleware/auth");
@@ -23,8 +29,8 @@ router.get("/courses", async (req, res) => {
       matches.push({
         $or: [
           { Code: { $regex: search.toUpperCase() } },
-          { Name: { $regex: search, $options:"i" } },
-          { "Course Description": { $regex: search, $options:"i" } },
+          { Name: { $regex: search, $options: "i" } },
+          { "Course Description": { $regex: search, $options: "i" } },
         ],
       });
     }
@@ -89,6 +95,10 @@ router.get("/courses/:id", async (req, res) => {
   }
 });
 
+// The ratings update request is not protected by auth middleware
+// Allows all users to rate the courses
+// RatingNum stores the # of user ratings
+// Rating stores the average user rating
 router.patch("/courses/ratings/:id", async (req, res) => {
   try {
     const course = await Course.findById(req.params.id);

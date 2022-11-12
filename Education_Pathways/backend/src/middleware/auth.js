@@ -1,3 +1,7 @@
+/*
+ * Middleware function used to authenticate incoming protected requests
+ */
+
 const jwt = require("jsonwebtoken");
 const User = require("../models/users");
 
@@ -8,7 +12,7 @@ const auth = async (req, res, next) => {
       token.replace("Bearer ", ""),
       process.env.JWT_SECRET_KEY
     );
-    const user = User.findById(jwtDecode._id);
+    const user = await User.findById(jwtDecode._id);
     if (!user) throw new Error();
     next();
   } catch (err) {

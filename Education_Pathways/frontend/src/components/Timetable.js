@@ -17,31 +17,36 @@ export default class Timetable extends Component {
 
   downloadCSV = () => {
     let data = JSON.parse(localStorage.getItem("timetable"));
-    const csvRows = [];
-    const headers = Object.keys(data[0]);
 
-    csvRows.push(headers.join(","));
+    if (data.length === 0) {
+      alert("No courses to save to timetable.");
+    } else {
+      const csvRows = [];
+      const headers = Object.keys(data[0]);
 
-    for (const row of data) {
-      const values = headers.map((header) => {
-        const val = row[header];
-        return `"${val}"`;
-      });
+      csvRows.push(headers.join(","));
 
-      csvRows.push(values.join(","));
+      for (const row of data) {
+        const values = headers.map((header) => {
+          const val = row[header];
+          return `"${val}"`;
+        });
+
+        csvRows.push(values.join(","));
+      }
+
+      let csv = csvRows.join("\n");
+
+      var downloadLink = document.createElement("a");
+      var blob = new Blob(["\ufeff", csv]);
+      var url = URL.createObjectURL(blob);
+      downloadLink.href = url;
+      downloadLink.download = "data.csv";
+
+      document.body.appendChild(downloadLink);
+      downloadLink.click();
+      document.body.removeChild(downloadLink);
     }
-
-    let csv = csvRows.join("\n");
-
-    var downloadLink = document.createElement("a");
-    var blob = new Blob(["\ufeff", csv]);
-    var url = URL.createObjectURL(blob);
-    downloadLink.href = url;
-    downloadLink.download = "data.csv";
-
-    document.body.appendChild(downloadLink);
-    downloadLink.click();
-    document.body.removeChild(downloadLink);
   };
 
   render() {

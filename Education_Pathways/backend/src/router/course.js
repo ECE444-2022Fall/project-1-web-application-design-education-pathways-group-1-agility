@@ -23,7 +23,8 @@ router.get("/courses", async (req, res) => {
       matches.push({
         $or: [
           { Code: { $regex: search.toUpperCase() } },
-          { "Course Description": { $regex: search } },
+          { Name: { $regex: search, $options:"i" } },
+          { "Course Description": { $regex: search, $options:"i" } },
         ],
       });
     }

@@ -45,8 +45,8 @@ class SearchResultDisplay extends Component {
             input: "",
             faculty: "",
             department: "",
-            minLevel: -1,
-            maxLevel: -1,
+            minLevel: "none",
+            maxLevel: "none",
             //Show loading animation when True
             dispSpinner: false,
             //Query results
@@ -84,99 +84,135 @@ class SearchResultDisplay extends Component {
 
     handleSubmit = (event) => {
         event.preventDefault();
-        this.getData(this.state.input);
+        this.getData();
     };
 
-    getData = (input) => {
+    getData = () => {
         this.setState({dispSpinner: true});
         //Construct the API Get Request from search term and filters
         let getRequestURL = "/courses?search="
         if (this.state.input !== "") {
-            getRequestURL = getRequestURL.concat(this.state.input.replace(/&/g, "%26"));
+            getRequestURL = getRequestURL
+                .concat(
+                    this.state.input
+                        .replaceAll("&", "%26")
+                        .replaceAll("/", "%2F")
+                        .replaceAll("=", "%3D")
+                        .replaceAll("?", "%3F")
+                );
         }
         if (this.state.faculty !== "") {
             getRequestURL = getRequestURL
                 .concat("&faculty=")
-                .concat(this.state.faculty.replace(/&/g, "%26"));
+                .concat(
+                    this.state.faculty
+                        .replaceAll("&", "%26")
+                        .replaceAll("/", "%2F")
+                        .replaceAll("=", "%3D")
+                        .replaceAll("?", "%3F")
+                );
         }
         if (this.state.department !== "") {
             getRequestURL = getRequestURL
                 .concat("&department=")
-                .concat(this.state.department.replace(/&/g, "%26"));
+                .concat(
+                    this.state.department
+                        .replaceAll("&", "%26")
+                        .replaceAll("/", "%2F")
+                        .replaceAll("=", "%3D")
+                        .replaceAll("?", "%3F")
+                );
         }
-        if (this.state.minLevel !== -1) {
+        if (this.state.minLevel !== "none") {
             getRequestURL = getRequestURL
                 .concat("&minLevel=")
                 .concat(this.state.minLevel);
         }
-        if (this.state.maxLevel !== -1) {
+        if (this.state.maxLevel !== "none") {
             getRequestURL = getRequestURL
                 .concat("&maxLevel=")
                 .concat(this.state.maxLevel);
         }
 
-        //Call the API
-        axios
-            .get(getRequestURL)
-            .then((res) =>{
-                if (res.status === 200) {
-                    this.setState({results: []});
-                    
-                    if (res.data.length > 0) {
-                        let len = res.data.length;
-                        let result_temp = [];
-                        result_temp.push(<Label></Label>);
-                        for (let i = 0; i < len; i++) {
-                            result_temp.push(
-                                <Result
-                                    key={res
-                                        .data[i]
-                                        ._id}
-                                    course_id={res
-                                        .data[i]
-                                        ._id}
-                                    course_code={res
-                                        .data[i]
-                                        .Code}
-                                    course_name={res
-                                        .data[i]
-                                        .Name}
-                                    course_faculty={res
-                                        .data[i]
-                                        .Faculty}
-                                    course_department={res
-                                        .data[i]
-                                        .Department}></Result>
-                            );
+        //Do not call API if user enters no params
+        if (getRequestURL === "/courses?search=") {
+            let result_temp = [];
+            result_temp.push(
+                <Result
+                    key={""}
+                    course_id={""}
+                    course_code={"NO_PARAMS_ENTERED"}
+                    course_name={""}
+                    course_faculty={""}
+                    course_department={""}
+                ></Result>
+            );
+            this.setState({results: result_temp});
+            this.setState({dispSpinner: false});
+        }
+        //Call API with the get request
+        else{
+            axios
+                .get(getRequestURL)
+                .then((res) =>{
+                    if (res.status === 200) {
+                        this.setState({results: []});
+                        
+                        if (res.data.length > 0) {
+                            let len = res.data.length;
+                            let result_temp = [];
+                            result_temp.push(<Label></Label>);
+                            for (let i = 0; i < len; i++) {
+                                result_temp.push(
+                                    <Result
+                                        key={res
+                                            .data[i]
+                                            ._id}
+                                        course_id={res
+                                            .data[i]
+                                            ._id}
+                                        course_code={res
+                                            .data[i]
+                                            .Code}
+                                        course_name={res
+                                            .data[i]
+                                            .Name}
+                                        course_faculty={res
+                                            .data[i]
+                                            .Faculty}
+                                        course_department={res
+                                            .data[i]
+                                            .Department}></Result>
+                                );
+                            }
+                            this.setState({results: result_temp});
+                        } else {
+                            alert("404 Error. Results not found.");
                         }
-                        this.setState({results: result_temp});
-                    } else {
-                        alert("Course not found");
                     }
-                }
-                this.setState({dispSpinner: false});
-            })
-            .catch((res) => {
-                if (res.status === 500) {
-                    window.alert("500 Error. Please refresh");
-                } else if (res.status === 404) {
-                    window.alert("404 Error. Results not found");
-                }
-                let result_temp = [];
-                result_temp.push(
-                    <Result
-                        key={""}
-                        course_id={""}
-                        course_code={"No results found."}
-                        course_name={""}
-                        course_faculty={""}
-                        course_department={""}
-                    ></Result>
-                );
-                this.setState({results: result_temp});
-                this.setState({dispSpinner: false});
+                    this.setState({dispSpinner: false});
+                }).catch((res) => {
+                    if (res.status === 500) {
+                        alert("500 Error. Please refresh.");
+                    } else if (res.status === 404) {
+                        alert("404 Error. Results not found.");
+                    }
+                    let result_temp = [];
+                    result_temp.push(
+                        <Result
+                            key={""}
+                            course_id={""}
+                            course_code={"NO_RESULTS_FOUND"}
+                            course_name={""}
+                            course_faculty={""}
+                            course_department={""}
+                        ></Result>
+                    );
+                    this.setState({results: result_temp});
+                    this.setState({dispSpinner: false});
 
-            })
+                })
+        }
     };
 
     render() {
@@ -193,7 +229,7 @@ class SearchResultDisplay extends Component {
                         <br></br>
                         <form onSubmit={this.handleSubmit} className={"search"}>
                             <input
-                                placeholder={"Search for courses by code, title, keyword..."}
+                                placeholder={"Enter a course code, title, keyword..."}
                                 className={"text-input"}
                                 type="text"
                                 name="input"
@@ -251,7 +287,7 @@ class SearchResultDisplay extends Component {
                                 value={this.state.minLevel}
                                 className={"dropdown"}
                                 id="minLevel">
-                                <option value="" className={"dropdown"} selected="selected">none</option>
+                                <option value="none" className={"dropdown"} selected="selected">none</option>
                                 {
                                     arrayDictNumbers(0, 7).map((option, index) => (
                                         <option key={index} value={option.value} className={"dropdown"}>
@@ -268,7 +304,7 @@ class SearchResultDisplay extends Component {
                                 value={this.state.maxLevel}
                                 className={"dropdown"}
                                 id="maxLevel">
-                                <option value="" className={"dropdown"} selected="selected">none</option>
+                                <option value="none" className={"dropdown"} selected="selected">none</option>
                                 {
                                     arrayDictNumbers(0, 7).map((option, index) => (
                                         <option key={index} value={option.value} className={"dropdown"}>

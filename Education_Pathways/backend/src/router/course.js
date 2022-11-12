@@ -46,7 +46,7 @@ router.get("/courses", async (req, res) => {
     const courses = matches.length
       ? await Course.find({ $and: matches })
       : await Course.find({});
-    return courses.length ? res.send(courses) : res.send(404).send();
+    return courses.length ? res.send(courses) : res.status(404).send();
   } catch (err) {
     res.status(500).send();
   }

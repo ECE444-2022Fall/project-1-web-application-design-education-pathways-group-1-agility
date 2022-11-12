@@ -45,3 +45,9 @@
 .dropdown {
   color: gray;
 }
+
+label {
+  display: inline-block;
+  width: 150px;
+  text-align: right;
+}

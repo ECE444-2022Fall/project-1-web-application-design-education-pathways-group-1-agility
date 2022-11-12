@@ -205,6 +205,7 @@ class SearchBarCompare extends Component {
 }
 
   render() {
+
       return this.state.dispSpinner
           ? (<Spinner/>)
           : (
@@ -301,6 +302,7 @@ class SearchBarCompare extends Component {
                   <div className={"search-result-display"}>{this.state.results}</div>
               </div>
           );
+
   }
 }
 

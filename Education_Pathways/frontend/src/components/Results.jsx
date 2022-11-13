@@ -31,25 +31,21 @@ class Result extends Component{
     if (this.state.course_code === "NO_PARAMS_ENTERED"){
       return(
         <Container>
-          <a href={`courseDetails/${this.state.course_id}`} onClick={this.redirectCourse} className={"search-result-item"} style={{textDecoration: "none"}}>
           <Row className={"result-display"}>
               <Col>
                   <h5>Try entering a search term or applying filter.</h5>  
               </Col>
           </Row>
-          </a>
         </Container>
       )
     } else if (this.state.course_code === "NO_RESULTS_FOUND") {
       return(
         <Container>
-          <a href={`courseDetails/${this.state.course_id}`} onClick={this.redirectCourse} className={"search-result-item"} style={{textDecoration: "none"}}>
           <Row className={"result-display"}>
               <Col>
                   <h5>No courses found.</h5>  
               </Col>
           </Row>
-          </a>
         </Container>
       )
     } else { //There are search results to display

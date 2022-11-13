@@ -25,6 +25,7 @@ class ResultCompare extends Component {
   };
 
   addCourse = () => {
+    if (!this.props.setCourse) return;
     const newCourse = [
       this.state.course_id,
       this.state.course_code,
@@ -97,14 +98,16 @@ class ResultCompare extends Component {
               </Col>
               <Col>{this.state.department}</Col>
               <Col>{this.state.faculty}</Col>
-              <Col>
-                <button
-                  style={{ borderRadius: "6px" }}
-                  onClick={this.addCourse}
-                >
-                  Add
-                </button>
-              </Col>
+              {this.props.setCourse ? (
+                <Col>
+                  <button
+                    style={{ borderRadius: "6px" }}
+                    onClick={this.addCourse}
+                  >
+                    Add
+                  </button>
+                </Col>
+              ) : null}
             </Row>
           </div>
         </Container>

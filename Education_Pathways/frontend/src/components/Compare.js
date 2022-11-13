@@ -134,11 +134,7 @@ class Compare extends Component {
         </div>
 
         <div className="search_container">
-          <SearchBarCompare
-            course1={this.state.course1}
-            course2={this.state.course2}
-            setCourse={this.setCourse}
-          />
+          <SearchBarCompare setCourse={this.setCourse} />
         </div>
       </div>
     );

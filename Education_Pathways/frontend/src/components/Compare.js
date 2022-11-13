@@ -3,10 +3,12 @@ import "./css/Compare.css";
 import SearchBarCompare from "./SearchCompare";
 import "./css/Result.css";
 
+// this function keep track of the current two compare course cards. 
 const Compare = () => {
   const [course1, setCourse1] = useState([]);
   const [course2, setCourse2] = useState([]);
 
+  // open link to see Past test
   const openLink = (course) => {
     const newWindow = window.open(
       syllabus_link(course),
@@ -18,7 +20,7 @@ const Compare = () => {
       newWindow.opener = null;
     }
   };
-
+  //helper method for open link. Check the syllabus link for specific courses.
   const syllabus_link = (course) => {
     if (typeof course !== "string") {
       console.log("not string!");

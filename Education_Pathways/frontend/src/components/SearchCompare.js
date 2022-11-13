@@ -29,8 +29,7 @@ function arrayDictNumbers(minVal, maxVal) {
   return arr_dict;
 }
 
-// The primary component of this file. Allows users to search, filter, and
-// access results
+// Allow users to search courses and to add them to compare cards. 
 class SearchBarCompare extends Component {
   constructor() {
       super();

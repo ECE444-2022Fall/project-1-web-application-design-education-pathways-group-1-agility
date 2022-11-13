@@ -4,8 +4,7 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import "./css/Result.css";
 
-var cur = 0
-
+//this class renders a unique result page for compare course section. 
 class ResultCompare extends Component {
   constructor(props) {
     super(props);
@@ -27,7 +26,7 @@ class ResultCompare extends Component {
   };
 
 
-
+  // add course to the compare card. 
   addCourse = () => {
        
     const newCourse = [
@@ -43,13 +42,13 @@ class ResultCompare extends Component {
     if (this.props.course1.length === 0 ) {
       
       this.props.setCourse1(newCourse);
-      cur = 1
+      
   
     } 
 
     else {
       this.props.setCourse2(newCourse);
-      cur = 0
+      
     }
   
     

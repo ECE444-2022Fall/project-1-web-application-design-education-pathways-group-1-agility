@@ -1,16 +1,10 @@
 /*
- * Define all CRUD routes on courses endpoint
- * Certain routes are protected by auth middleware
- * This prevents non admin users from modifying the courses database
+ * Define all CRUD functions on courses endpoint
  */
 
-const express = require("express");
-const Course = require("../models/courses.js");
-const auth = require("../middleware/auth");
+const Course = require("../models/courses.model.js");
 
-const router = new express.Router();
-
-router.post("/courses", auth, async (req, res) => {
+const addCourse = async (req, res) => {
   const course = new Course(req.body);
   try {
     await course.save();
@@ -18,9 +12,9 @@ router.post("/courses", auth, async (req, res) => {
   } catch (err) {
     res.status(400).send(err);
   }
-});
+};
 
-router.get("/courses", async (req, res) => {
+const getAllCourses = async (req, res) => {
   try {
     const { search, department, faculty, campus, minLevel, maxLevel } =
       req.query;
@@ -56,36 +50,9 @@ router.get("/courses", async (req, res) => {
   } catch (err) {
     res.status(500).send();
   }
-});
+};
 
-router.get("/courses/departments", async (req, res) => {
-  try {
-    const departments = await Course.find().distinct("Department");
-    res.send(departments);
-  } catch (err) {
-    res.status(500).send();
-  }
-});
-
-router.get("/courses/faculties", async (req, res) => {
-  try {
-    const faculties = await Course.find().distinct("Faculty");
-    res.send(faculties);
-  } catch (err) {
-    res.status(500).send();
-  }
-});
-
-router.get("/courses/campuses", async (req, res) => {
-  try {
-    const campuses = await Course.find().distinct("Campus");
-    res.send(campuses);
-  } catch (err) {
-    res.status(500).send();
-  }
-});
-
-router.get("/courses/:id", async (req, res) => {
+const getCourseById = async (req, res) => {
   try {
     const course = await Course.findById(req.params.id);
     if (!course) return res.status(404).send();
@@ -93,13 +60,61 @@ router.get("/courses/:id", async (req, res) => {
   } catch (err) {
     res.status(400).send(err);
   }
-});
+};
 
-// The ratings update request is not protected by auth middleware
-// Allows all users to rate the courses
+const updateCourse = async (req, res) => {
+  try {
+    const course = await Course.findByIdAndUpdate(req.params.id, req.body, {
+      new: true,
+      runValidators: true,
+    });
+    if (!course) return res.status(404).send();
+    res.send(course);
+  } catch (err) {
+    res.status(400).send(err);
+  }
+};
+
+const deleteCourse = async (req, res) => {
+  try {
+    const course = await Course.findByIdAndDelete(req.params.id);
+    if (!course) return res.status(404).send();
+    res.send(course);
+  } catch (err) {
+    res.status(500).send();
+  }
+};
+
+const getCourseDepartments = async (req, res) => {
+  try {
+    const departments = await Course.find().distinct("Department");
+    res.send(departments);
+  } catch (err) {
+    res.status(500).send();
+  }
+};
+
+const getCourseFaculties = async (req, res) => {
+  try {
+    const faculties = await Course.find().distinct("Faculty");
+    res.send(faculties);
+  } catch (err) {
+    res.status(500).send();
+  }
+};
+
+const getCourseCampuses = async (req, res) => {
+  try {
+    const campuses = await Course.find().distinct("Campus");
+    res.send(campuses);
+  } catch (err) {
+    res.status(500).send();
+  }
+};
+
 // RatingNum stores the # of user ratings
 // Rating stores the average user rating
-router.patch("/courses/ratings/:id", async (req, res) => {
+const updateCourseRating = async (req, res) => {
   try {
     const course = await Course.findById(req.params.id);
     if (!course || !req.body.Rating) return res.status(404).send();
@@ -112,29 +127,16 @@ router.patch("/courses/ratings/:id", async (req, res) => {
   } catch (err) {
     res.status(400).send(err);
   }
-});
+};
 
-router.patch("/courses/:id", auth, async (req, res) => {
-  try {
-    const course = await Course.findByIdAndUpdate(req.params.id, req.body, {
-      new: true,
-      runValidators: true,
-    });
-    if (!course) return res.status(404).send();
-    res.send(course);
-  } catch (err) {
-    res.status(400).send(err);
-  }
-});
-
-router.delete("/courses/:id", auth, async (req, res) => {
-  try {
-    const course = await Course.findByIdAndDelete(req.params.id);
-    if (!course) return res.status(404).send();
-    res.send(course);
-  } catch (err) {
-    res.status(500).send();
-  }
-});
-
-module.exports = router;
+module.exports = {
+  addCourse,
+  getAllCourses,
+  getCourseById,
+  updateCourse,
+  deleteCourse,
+  getCourseDepartments,
+  getCourseFaculties,
+  getCourseCampuses,
+  updateCourseRating,
+};

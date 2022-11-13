@@ -1,19 +1,16 @@
 /*
- * Define routes on user endpoint
+ * Define functions on user endpoint
  */
 
-const express = require("express");
+const User = require("../models/users.model");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-const User = require("../models/users.js");
-
-const router = new express.Router();
 
 // Authenticate admin user
 // The provided jwt token will allow
 // admins to access protected course routes
 
-router.post("/users/login", async (req, res) => {
+const login = async (req, res) => {
   try {
     const user = await User.findOne({ email: req.body.email });
     if (!(await bcrypt.compare(req.body.password, user.password)))
@@ -25,6 +22,8 @@ router.post("/users/login", async (req, res) => {
   } catch (err) {
     res.status(401).send("Bad auth");
   }
-});
+};
 
-module.exports = router;
+module.exports = {
+  login,
+};

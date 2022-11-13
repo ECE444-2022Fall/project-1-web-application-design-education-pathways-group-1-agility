@@ -1,5 +1,5 @@
 /*
- * Set up mongodb connection
+ * Connect to database
  */
 
 const mongoose = require("mongoose");

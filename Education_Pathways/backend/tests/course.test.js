@@ -5,8 +5,8 @@
 const request = require("supertest");
 const bcrypt = require("bcryptjs");
 const app = require("../src/app.js");
-const Course = require("../src/models/courses.js");
-const User = require("../src/models/users");
+const Course = require("../src/models/courses.model.js");
+const User = require("../src/models/users.model.js");
 
 const course1 = {
   Code: "ECE344H1",

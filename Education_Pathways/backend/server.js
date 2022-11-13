@@ -2,7 +2,7 @@
  * Run the server
  */
 
-const app = require("./app.js");
+const app = require("./src/app.js");
 const port = process.env.PORT;
 
 app.listen(port, () => {

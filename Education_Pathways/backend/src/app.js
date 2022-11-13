@@ -3,9 +3,9 @@
  */
 
 const express = require("express");
-require("./db/mongoose.js");
-const courseRouter = require("./router/courses");
-const userRouter = require("./router/users");
+require("./models");
+const courseRouter = require("./routes/courses.routes");
+const userRouter = require("./routes/users.routes");
 const cors = require("cors");
 
 const app = express();

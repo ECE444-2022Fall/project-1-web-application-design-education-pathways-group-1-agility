@@ -72,7 +72,7 @@ class EditCourseDesc extends Component {
     } catch (err) {
       event.preventDefault();
       event.target.password.value = "";
-      alert("Unable to update course");
+      alert("Unable to update course. Please confirm that the admin credentials are correct.");
     }
     this.setState({ dispSpinner: false });
   };

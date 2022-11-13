@@ -84,7 +84,7 @@ class Compare extends Component {
                     this.openLink(this.state.course1[1]);
                   }}
                 >
-                  Past Test
+                  Past Tests
                 </button>
               )}
             </div>
@@ -126,7 +126,7 @@ class Compare extends Component {
                     this.openLink(this.state.course2[1]);
                   }}
                 >
-                  Past Test
+                  Past Tests
                 </button>
               )}
             </div>

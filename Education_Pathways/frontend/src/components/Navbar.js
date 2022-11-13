@@ -1,13 +1,15 @@
+/*
+Navigation Bar.
+Also includes "About Us" section.
+*/
+
 import React, { Component } from "react";
 import "./css/navbar.css";
 import "bootstrap/dist/css/bootstrap.css";
 import logo from "./img/logo.png";
 import { Navbar, Nav } from "react-bootstrap";
 import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
-// import LogIn from "./LogIn.jsx";
 import CourseDescriptionPage from "./CourseDescription";
-// import Wishlist from './Wishlist';
-// import SignUp from './SignUp'
 import SearchResultDisplay from "./ResultDisplay";
 import EditCourseDescription from "./EditCourseDescription";
 
@@ -111,12 +113,14 @@ export default class NavbarComp extends Component {
                   <a href="https://carte.utoronto.ca/"> (CARTE)</a>{" "}
                 </p>
                 <p>
-                  Student team from{" "}
+                  Student teams from{" "}
                   <a href="https://shuiblue.github.io/UofT-ECE444/">
-                    ECE444-Fall2021
+                    ECE444 - Software Engineering
                   </a>{" "}
-                  : Janelle Cuevas, Jean Lin, Terry Luan, Cansin Varol, Nick Woo
+                  :
                 </p>
+                <p>Fall 2021 - Janelle Cuevas, Jean Lin, Terry Luan, Cansin Varol, Nick Woo</p>
+                <p>Fall 2022 - Nissar Ishtiak, Andrew Kim, Abdullah A. Mohammed, Chuanyang Qiao, Gaurav Ranganath</p>
               </div>
               {/* <SearchResultDisplay /> */}
             </Route>

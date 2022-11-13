@@ -1,8 +1,10 @@
-import React, { Component } from "react";
+import React, { Component, useEffect } from "react";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import "./css/Result.css";
+
+var cur = 0
 
 class ResultCompare extends Component {
   constructor(props) {
@@ -24,30 +26,36 @@ class ResultCompare extends Component {
     });
   };
 
+
+
   addCourse = () => {
-    if (this.props.course1.length === 0) {
-      const newCourse1 = [
-        this.state.course_id,
-        this.state.course_code,
-        this.state.course_name,
-        this.state.department,
-        this.state.faculty,
-        this.state.description,
-        this.state.pre,
-      ];
-      this.props.setCourse1(newCourse1);
-    } else {
-      const newCourse2 = [
-        this.state.course_id,
-        this.state.course_code,
-        this.state.course_name,
-        this.state.department,
-        this.state.faculty,
-        this.state.description,
-        this.state.pre,
-      ];
-      this.props.setCourse2(newCourse2);
+       
+    const newCourse = [
+      this.state.course_id,
+      this.state.course_code,
+      this.state.course_name,
+      this.state.department,
+      this.state.faculty,
+      this.state.description,
+      this.state.pre,
+    ];
+    
+    if (this.props.course1.length === 0 ) {
+      
+      this.props.setCourse1(newCourse);
+      cur = 1
+  
+    } 
+
+    else {
+      this.props.setCourse2(newCourse);
+      cur = 0
     }
+  
+    
+    
+    
+    
   };
 
   render() {
@@ -79,7 +87,6 @@ class ResultCompare extends Component {
     } else {
     return (
       <Container>
-        {/* <a href={`courseDetails/${this.state.course_id}`} onClick={this.redirectCourse} className={"search-result-item"} style={{textDecoration: "none"}}> */}
         <a
           href={`courseDetails/${this.state.course_id}`}
           onClick={this.redirectCourse}

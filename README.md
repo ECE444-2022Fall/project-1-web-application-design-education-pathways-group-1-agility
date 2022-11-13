@@ -10,4 +10,4 @@ This respository started off as a clone of https://github.com/ECE444-2022Fall/As
 <br /><br />
 We are using JIRA to manage this project: https://ece444-f2022-group1-project1.atlassian.net/jira/software/c/projects/EP/issues
 ## Technologies Used
-TBD()...
+node, express, mongodb, react

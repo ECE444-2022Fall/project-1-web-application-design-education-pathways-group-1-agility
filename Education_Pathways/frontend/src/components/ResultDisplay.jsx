@@ -1,6 +1,8 @@
-// This file defines the SearchResultDisplay component. This component allows
-// the user to search by keyword and drop filters It also displays the search
-// results below the search
+/* 
+This file defines the SearchResultDisplay component. 
+This component allows the user to search by keyword and dropdown filters.
+It also displays the search results below the input form as defined in Results.jsx
+*/
 
 import React, {Component} from "react";
 import axios from "../axiosInstance/AxiosInstance";

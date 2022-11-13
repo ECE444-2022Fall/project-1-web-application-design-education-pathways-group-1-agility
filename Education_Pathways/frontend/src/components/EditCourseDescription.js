@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import axios from "../axiosInstance/AxiosInstance";
 import Spinner from "./Spinner";
-import "./css/course-description.css";
+import "./css/edit-course-description.css";
 import "bootstrap/dist/css/bootstrap.css";
 import { Redirect } from "react-router-dom";
 import { Link } from "react-router-dom";
@@ -93,19 +93,22 @@ class EditCourseDesc extends Component {
           {this.state.course_code}: {this.state.course_name}
         </h1>
         <form className="form" onSubmit={this.onSubmit}>
-          <label className="form-field-label">Username</label>
+          <label className="form-field-label">Admin Username</label>
           <input
             type="text"
             id="username"
-            placeholder="Administrator Email"
+            placeholder="Admin Email"
             className="text-input form-field"
           />
-          <label className="form-field-label">Password</label>
+          <label className="form-field-label">Admin Password</label>
           <input
             type="password"
             id="password"
             className="text-input form-field"
           />
+          <p>Admin credentials required to update.</p>
+          <hr className="section-divider"></hr>
+          <br></br>
           <label className="form-field-label">Course Code</label>
           <input
             type="text"
@@ -143,9 +146,12 @@ class EditCourseDesc extends Component {
             defaultValue={this.state.department}
             className="text-input form-field"
           />
-          <h1 style={{ margin: "2%" }} className="form-field-label">
-            Course Requisites (Separate With Commas)
+          <h1 style={{ margin: "2%" }} className="form-field-label-underlined">
+            &nbsp;Course Requisites&nbsp;
           </h1>
+          <p>Please enter requisite course codes, seperated by commas.</p>
+          <p>Ex. ABC123H1, ABC456H1</p>
+          <br></br>
           <label className="form-field-label">Pre-Requisites</label>
           <input
             type="text"

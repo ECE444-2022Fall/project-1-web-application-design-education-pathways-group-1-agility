@@ -169,8 +169,6 @@ class SearchBarCompare extends Component {
                     course_description={res.data[i]["Course Description"]}
                     course_pre={res.data[i]["Pre-requisites"]}
                     setCourse={this.props.setCourse}
-                    course1={this.props.course1}
-                    course2={this.props.course2}
                   ></ResultCompare>
                 );
               }

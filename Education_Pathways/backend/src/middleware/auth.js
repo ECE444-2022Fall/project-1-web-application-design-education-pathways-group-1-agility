@@ -3,17 +3,11 @@
  */
 
 const jwt = require("jsonwebtoken");
-const User = require("../models/users");
 
 const auth = async (req, res, next) => {
   try {
     const token = req.header("Authorization");
-    const jwtDecode = jwt.verify(
-      token.replace("Bearer ", ""),
-      process.env.JWT_SECRET_KEY
-    );
-    const user = await User.findById(jwtDecode._id);
-    if (!user) throw new Error("Bad auth");
+    jwt.verify(token.split(" ")[1], process.env.JWT_SECRET_KEY);
     next();
   } catch (err) {
     res.status(401).send("Bad auth");

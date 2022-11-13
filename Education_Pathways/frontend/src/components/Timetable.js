@@ -48,7 +48,6 @@ export default class Timetable extends Component {
       document.body.removeChild(downloadLink);
     }
   };
-
   render() {
     return (
       <div className="body_text">
@@ -62,9 +61,12 @@ export default class Timetable extends Component {
               <th>Year</th>
             </tr>
             {this.getTimeTable().map((val, key) => {
+              var courseDescriptionPage = "/courseDetails/" + val.course_id
               return (
                 <tr key={key}>
-                  <td>{val.course_code}</td>
+                  <td>
+                    <Link to={courseDescriptionPage}>{val.course_code}</Link>
+                  </td>
                   <td>{val.course_name}</td>
                   <td>{val.semester}</td>
                   <td>{val.year}</td>

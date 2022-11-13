@@ -69,17 +69,20 @@ class CourseDescriptionPage extends Component {
     let timetable = JSON.parse(localStorage.getItem("timetable"));
 
     var course = {
+      course_id: this.props.match.params.id,
       course_code: this.state.course_code,
       course_name: this.state.course_name,
       semester: this.selectSemester.value,
       year: this.selectYear.value,
     };
 
-    timetable.push(course);
-
-    localStorage.setItem("timetable", JSON.stringify(timetable));
-
-    window.location.reload();
+    if (timetable.some(e => e.course_code === this.state.course_code)) {
+      alert("This course is already saved in your timetable!")
+    } else {
+      timetable.push(course);
+      localStorage.setItem("timetable", JSON.stringify(timetable));
+      window.location.reload();
+    }
   };
 
   openLink = () => {

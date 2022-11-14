@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import "./css/timetable.css";
 import "bootstrap/dist/css/bootstrap.css";
+import removeIcon from "../assets/remove_icon.png";
 import { Link } from "react-router-dom";
 
 export default class Timetable extends Component {
@@ -51,7 +52,7 @@ export default class Timetable extends Component {
 
   printCSV = () => {
     window.print();
-  }
+  };
   render() {
     return (
       <div className="body_text">
@@ -65,7 +66,7 @@ export default class Timetable extends Component {
               <th>Year</th>
             </tr>
             {this.getTimeTable().map((val, key) => {
-              var courseDescriptionPage = "/courseDetails/" + val.course_id
+              var courseDescriptionPage = "/courseDetails/" + val.course_id;
               return (
                 <tr key={key}>
                   <td>
@@ -77,7 +78,7 @@ export default class Timetable extends Component {
                   <td>
                     <Link>
                       <img
-                        src={require("./img/remove_icon.png").default}
+                        src={removeIcon}
                         alt="Edit"
                         style={{ height: "25px", width: "25px" }}
                         onClick={() => this.deleteTimeTableEntry(key)}
@@ -94,10 +95,7 @@ export default class Timetable extends Component {
           >
             Download CSV
           </button>
-          <button
-            onClick={this.printCSV}
-            className="download-timetable-button"
-          >
+          <button onClick={this.printCSV} className="download-timetable-button">
             Print Page
           </button>
         </div>

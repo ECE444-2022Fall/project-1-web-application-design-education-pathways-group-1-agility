@@ -21,6 +21,7 @@ class CourseDescriptionPage extends Component {
       course_description: "",
       syllabus: "",
       prerequisites: "",
+      prerequisitesArr: [],
       corequisites: "",
       exclusions: "",
       rating: 0,
@@ -39,6 +40,7 @@ class CourseDescriptionPage extends Component {
       this.setState({ faculty: res.data.Faculty });
       this.setState({ department: res.data.Department });
       this.setState({ prerequisites: res.data["Pre-requisites"].join(", ") });
+      this.setState({ prerequisitesArr: res.data["Pre-requisites"] });
       this.setState({ corequisites: res.data["Corequisite"].join(", ") });
       this.setState({ exclusions: res.data["Exclusion"].join(", ") });
       this.setState({ rating: res.data.Rating });
@@ -79,13 +81,13 @@ class CourseDescriptionPage extends Component {
       alert("This course is already saved in your timetable!")
     } else {
       
-      this.state.prerequisites.split(", ").forEach(prereq => {
+      this.state.prerequisitesArr.forEach(prereq => {
         if (timetable.some(savedCourse => savedCourse.coursecode === prereq) === false) {
           missingPrereqs.push(prereq);
         }
       })
 
-      if (missingPrereqs.length > 1) {
+      if (missingPrereqs.length > 0) {
         var missingPrereqAlert = "WARNING: You are missing the following prerequisite(s): " + missingPrereqs;
         alert(missingPrereqAlert);
       }

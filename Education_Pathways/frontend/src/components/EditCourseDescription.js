@@ -65,6 +65,7 @@ class EditCourseDesc extends Component {
       });
       const { token } = res.data;
       localStorage.setItem("access_token", token);
+      
       // remove trailing entries in these 3 fields
       const pre_requisite = parseArr(event.target.prerequisites.value);
       const co_requisite = parseArr(event.target.corequisites.value);

@@ -6,6 +6,10 @@ import "bootstrap/dist/css/bootstrap.css";
 import { Redirect } from "react-router-dom";
 import { Link } from "react-router-dom";
 
+/*
+Edit Course Description Page to change any sections about the course info if you have an admin's credentials that is authorized to do so
+*/
+
 const parseArr = (value) => {
   let arr =
     value.replace(/\s/g, "") === "" ? [] : value.replace(/\s/g, "").split(",");

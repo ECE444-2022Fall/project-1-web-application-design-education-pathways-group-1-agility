@@ -9,6 +9,10 @@ import axios from "../axiosInstance/AxiosInstance";
 import Spinner from "./Spinner";
 import { Link } from "react-router-dom";
 
+/*
+Course Description Page to view course info, edit course info, or leave a rating out of 5 stars
+*/
+
 class CourseDescriptionPage extends Component {
   constructor(props) {
     super(props);

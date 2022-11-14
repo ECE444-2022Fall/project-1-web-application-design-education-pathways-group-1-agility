@@ -28,7 +28,7 @@ class CourseDescriptionPage extends Component {
       userRating: 0,
       dispSpinner: false,
       dispRating: false,
-      currentYear: new Date().getFullYear()
+      currentYear: new Date().getFullYear(),
     };
   }
 
@@ -67,7 +67,7 @@ class CourseDescriptionPage extends Component {
 
   saveToTimetableCSV = () => {
     let timetable = JSON.parse(localStorage.getItem("timetable"));
-    var missingPrereqs = []
+    var missingPrereqs = [];
 
     var course = {
       course_id: this.props.match.params.id,
@@ -77,18 +77,25 @@ class CourseDescriptionPage extends Component {
       year: this.selectYear.value,
     };
 
-    if (timetable.some(e => e.course_code === this.state.course_code)) {
-      alert("This course is already saved in your timetable!")
+    if (timetable.some((e) => e.course_code === this.state.course_code)) {
+      alert("This course is already saved in your timetable!");
     } else {
-      
-      this.state.prerequisitesArr.forEach(prereq => {
-        if (timetable.some(savedCourse => savedCourse.coursecode === prereq) === false) {
+      console.log(this.state.prerequisitesArr);
+
+      this.state.prerequisitesArr.forEach((prereq) => {
+        if (
+          timetable.some(
+            (savedCourse) => savedCourse.course_code === prereq
+          ) === false
+        ) {
           missingPrereqs.push(prereq);
         }
-      })
-
+      });
+      
       if (missingPrereqs.length > 0) {
-        var missingPrereqAlert = "WARNING: You are missing the following prerequisite(s): " + missingPrereqs;
+        var missingPrereqAlert =
+          "WARNING: You are missing the following prerequisite(s): " +
+          missingPrereqs;
         alert(missingPrereqAlert);
       }
 
@@ -200,14 +207,24 @@ class CourseDescriptionPage extends Component {
               <h3>Year</h3>
               <div className="select-wrapper">
                 <select
-                 ref={(input) => (this.selectYear = input)}
+                  ref={(input) => (this.selectYear = input)}
                   className="select-box"
                 >
-                  <option value={String(this.state.currentYear)}>{this.state.currentYear}</option>
-                  <option value={String(this.state.currentYear+1)}>{this.state.currentYear+1}</option>
-                  <option value={String(this.state.currentYear+2)}>{this.state.currentYear+2}</option>
-                  <option value={String(this.state.currentYear+3)}>{this.state.currentYear+3}</option>
-                  <option value={String(this.state.currentYear+4)}>{this.state.currentYear+4}</option>
+                  <option value={String(this.state.currentYear)}>
+                    {this.state.currentYear}
+                  </option>
+                  <option value={String(this.state.currentYear + 1)}>
+                    {this.state.currentYear + 1}
+                  </option>
+                  <option value={String(this.state.currentYear + 2)}>
+                    {this.state.currentYear + 2}
+                  </option>
+                  <option value={String(this.state.currentYear + 3)}>
+                    {this.state.currentYear + 3}
+                  </option>
+                  <option value={String(this.state.currentYear + 4)}>
+                    {this.state.currentYear + 4}
+                  </option>
                 </select>
               </div>
             </Col>

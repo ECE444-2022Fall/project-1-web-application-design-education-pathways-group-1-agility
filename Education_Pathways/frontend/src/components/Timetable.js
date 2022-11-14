@@ -48,6 +48,10 @@ export default class Timetable extends Component {
       document.body.removeChild(downloadLink);
     }
   };
+
+  printCSV = () => {
+    window.print();
+  }
   render() {
     return (
       <div className="body_text">
@@ -89,6 +93,12 @@ export default class Timetable extends Component {
             className="download-timetable-button"
           >
             Download CSV
+          </button>
+          <button
+            onClick={this.printCSV}
+            className="download-timetable-button"
+          >
+            Print Page
           </button>
         </div>
       </div>

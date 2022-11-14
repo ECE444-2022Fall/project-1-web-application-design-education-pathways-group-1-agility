@@ -11,3 +11,11 @@ This respository started off as a clone of https://github.com/ECE444-2022Fall/As
 We are using JIRA to manage this project: https://ece444-f2022-group1-project1.atlassian.net/jira/software/c/projects/EP/issues
 ## Technologies Used
 node, express, mongodb, react
+
+-----
+# Unit Test Functions:
+Nissar Ishtiak - 
+<br />Andrew Kim - https://github.com/ECE444-2022Fall/project-1-web-application-design-education-pathways-group-1-agility/blob/85a73c5f01fee9f25d1426a8e58d659b7d6a77fb/Education_Pathways/backend/tests/course.test.js#L286-L306
+<br />Abdullah A. Mohammed - 
+<br />Chuanyang Qiao - 
+<br />Gaurav Ranganath - 

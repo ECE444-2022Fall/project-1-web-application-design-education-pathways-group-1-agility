@@ -110,6 +110,7 @@ class CourseDescriptionPage extends Component {
             <Col xs={8}>
               <h1>
                 {this.state.course_code} : {this.state.course_name}
+                {/* Button to link to Edit Course Information page */}
                 <Link
                   to={`/edit/${this.props.match.params.id}`}
                   state={{ id: this.props.match.params.id }}

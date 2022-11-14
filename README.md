@@ -16,7 +16,7 @@ Node.js, React for frontend, Express.js for backend, Mongodb for database, and H
 
 -----
 # Unit Test Functions:
-Nissar Ishtiak ~ https://github.com/ECE444-2022Fall/project-1-web-application-design-education-pathways-group-1-agility/blob/main/Education_Pathways/backend/tests/course.test.js#L290-L309.
+Nissar Ishtiak ~ https://github.com/ECE444-2022Fall/project-1-web-application-design-education-pathways-group-1-agility/blob/main/Education_Pathways/backend/tests/course.test.js#L290-L309
 <br />Andrew Kim ~ https://github.com/ECE444-2022Fall/project-1-web-application-design-education-pathways-group-1-agility/blob/85a73c5f01fee9f25d1426a8e58d659b7d6a77fb/Education_Pathways/backend/tests/course.test.js#L286-L306
 <br />Abdullah A. Mohammed ~
 <br />Chuanyang Qiao ~

@@ -271,7 +271,7 @@ class CourseDescriptionPage extends Component {
                 size={40}
                 value={this.state.userRating}
               />
-              <button className="rate-button" onClick={this.submitUserRating}>
+              <button className={"rate-button"} onClick={this.submitUserRating}>
                 Submit
               </button>
             </Row>

@@ -53,26 +53,35 @@ class EditCourseDesc extends Component {
         password: event.target.password.value,
       });
       const { token } = res.data;
-      localStorage.setItem("access_token", token);
       const pre_requisite = parseArr(event.target.prerequisites.value);
       const co_requisite = parseArr(event.target.corequisites.value);
       const exclusion = parseArr(event.target.exclusions.value);
 
-      await axios.patch(`courses/${this.props.match.params.id}`, {
-        "Course Description": event.target.description.value,
-        Code: event.target.code.value,
-        Name: event.target.name.value,
-        Faculty: event.target.faculty.value,
-        Department: event.target.department.value,
-        "Pre-requisites": pre_requisite,
-        Corequisite: co_requisite,
-        Exclusion: exclusion,
-      });
+      await axios.patch(
+        `courses/${this.props.match.params.id}`,
+        {
+          "Course Description": event.target.description.value,
+          Code: event.target.code.value,
+          Name: event.target.name.value,
+          Faculty: event.target.faculty.value,
+          Department: event.target.department.value,
+          "Pre-requisites": pre_requisite,
+          Corequisite: co_requisite,
+          Exclusion: exclusion,
+        },
+        {
+          headers: {
+            Authorization: "Bearer " + token,
+          },
+        }
+      );
       this.setState({ editDone: true });
     } catch (err) {
       event.preventDefault();
       event.target.password.value = "";
-      alert("Unable to update course. Please confirm that the admin credentials are correct.");
+      alert(
+        "Unable to update course. Please confirm that the admin credentials are correct."
+      );
     }
     this.setState({ dispSpinner: false });
   };

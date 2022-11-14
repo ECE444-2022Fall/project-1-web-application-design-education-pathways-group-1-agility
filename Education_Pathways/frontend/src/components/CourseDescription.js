@@ -8,6 +8,7 @@ import Row from "react-bootstrap/Row";
 import axios from "../axiosInstance/AxiosInstance";
 import Spinner from "./Spinner";
 import { Link } from "react-router-dom";
+import edit_icon from "../assets/edit_icon.png";
 
 class CourseDescriptionPage extends Component {
   constructor(props) {
@@ -91,7 +92,7 @@ class CourseDescriptionPage extends Component {
           missingPrereqs.push(prereq);
         }
       });
-      
+
       if (missingPrereqs.length > 0) {
         var missingPrereqAlert =
           "WARNING: You are missing the following prerequisite(s): " +
@@ -153,11 +154,7 @@ class CourseDescriptionPage extends Component {
                   to={`/edit/${this.props.match.params.id}`}
                   state={{ id: this.props.match.params.id }}
                 >
-                  <img
-                    src={require("./img/edit_icon.png").default}
-                    alt="Edit"
-                    className="edit-button"
-                  />
+                  <img src={edit_icon} alt="Edit" className="edit-button" />
                 </Link>
               </h1>
             </Col>

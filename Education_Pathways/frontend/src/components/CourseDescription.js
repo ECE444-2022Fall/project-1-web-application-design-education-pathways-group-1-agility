@@ -10,6 +10,10 @@ import Spinner from "./Spinner";
 import { Link } from "react-router-dom";
 import edit_icon from "../assets/edit_icon.png";
 
+/*
+Course Description Page to view course info, edit course info, or leave a rating out of 5 stars
+*/
+
 class CourseDescriptionPage extends Component {
   constructor(props) {
     super(props);
@@ -150,6 +154,7 @@ class CourseDescriptionPage extends Component {
             <Col xs={8}>
               <h1>
                 {this.state.course_code} : {this.state.course_name}
+                {/* Button to link to Edit Course Information page */}
                 <Link
                   to={`/edit/${this.props.match.params.id}`}
                   state={{ id: this.props.match.params.id }}

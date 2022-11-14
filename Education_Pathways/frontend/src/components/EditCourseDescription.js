@@ -6,6 +6,11 @@ import "bootstrap/dist/css/bootstrap.css";
 import { Redirect } from "react-router-dom";
 import { Link } from "react-router-dom";
 
+/*
+Edit Course Description Page to change any sections about the course info if you have an admin's credentials that is authorized to do so
+*/
+
+// removes empty trailing entries with extra commas
 const parseArr = (value) => {
   let arr =
     value.replace(/\s/g, "") === "" ? [] : value.replace(/\s/g, "").split(",");
@@ -18,6 +23,7 @@ const parseArr = (value) => {
 class EditCourseDesc extends Component {
   constructor(props) {
     super(props);
+    // initialize object
     this.state = {
       course_code: "",
       course_name: "",
@@ -33,6 +39,7 @@ class EditCourseDesc extends Component {
   }
 
   componentDidMount() {
+    // fetch pertinent course info from database
     axios.get(`courses/${this.props.match.params.id}`).then((res) => {
       this.setState({ course_code: res.data.Code });
       this.setState({ course_name: res.data.Name });
@@ -45,18 +52,26 @@ class EditCourseDesc extends Component {
     });
   }
 
+  // stall and wait to see if credentials are correct (async/await)
+  // if yes, update database with current fields
   onSubmit = async (event) => {
+    // stalling spinner
     this.setState({ dispSpinner: true });
     try {
+      // authetication
       const res = await axios.post("/users/login", {
         email: event.target.username.value,
         password: event.target.password.value,
       });
       const { token } = res.data;
+      //localStorage.setItem("access_token", token);
+      
+      // remove trailing entries in these 3 fields
       const pre_requisite = parseArr(event.target.prerequisites.value);
       const co_requisite = parseArr(event.target.corequisites.value);
       const exclusion = parseArr(event.target.exclusions.value);
 
+      // patch database changes
       await axios.patch(
         `courses/${this.props.match.params.id}`,
         {
@@ -77,6 +92,7 @@ class EditCourseDesc extends Component {
       );
       this.setState({ editDone: true });
     } catch (err) {
+      // authentication error, do not refresh if user would like to re-enter credentials
       event.preventDefault();
       event.target.password.value = "";
       alert(
@@ -87,20 +103,24 @@ class EditCourseDesc extends Component {
   };
 
   render() {
+    // ternary operator to redirect user to course page, spinner, or show edit course information page
     return this.state.editDone ? (
       <Redirect to={`/courseDetails/${this.props.match.params.id}`} />
     ) : this.state.dispSpinner ? (
       <Spinner />
     ) : (
       <div>
+        {/* back button */}
         <Link to={`/courseDetails/${this.props.match.params.id}`}>
           <button id={"form-back-button"} className={"syllabus-link"}>
             Back
           </button>
         </Link>
+        {/* title */}
         <h1 style={{ marginBottom: "2.5%" }}>
           {this.state.course_code}: {this.state.course_name}
         </h1>
+        {/* Forms and Fields with current data filled out for user to edit however they like */}
         <form className="form" onSubmit={this.onSubmit}>
           <label className="form-field-label">Admin Username</label>
           <input

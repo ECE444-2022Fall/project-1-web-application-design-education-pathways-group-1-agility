@@ -85,7 +85,7 @@ class CourseDescriptionPage extends Component {
         }
       })
 
-      if (missingPrereqs.length > 0) {
+      if (missingPrereqs.length > 1) {
         var missingPrereqAlert = "WARNING: You are missing the following prerequisite(s): " + missingPrereqs;
         alert(missingPrereqAlert);
       }

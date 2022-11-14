@@ -63,23 +63,37 @@ class CourseDescriptionPage extends Component {
     });
   }
 
-  
-
   saveToTimetableCSV = () => {
     let timetable = JSON.parse(localStorage.getItem("timetable"));
+    var missingPrereqs = []
 
     var course = {
+      course_id: this.props.match.params.id,
       course_code: this.state.course_code,
       course_name: this.state.course_name,
       semester: this.selectSemester.value,
       year: this.selectYear.value,
     };
 
-    timetable.push(course);
+    if (timetable.some(e => e.course_code === this.state.course_code)) {
+      alert("This course is already saved in your timetable!")
+    } else {
+      
+      this.state.prerequisites.split(", ").forEach(prereq => {
+        if (timetable.some(savedCourse => savedCourse.coursecode === prereq) === false) {
+          missingPrereqs.push(prereq);
+        }
+      })
 
-    localStorage.setItem("timetable", JSON.stringify(timetable));
+      if (missingPrereqs.length > 0) {
+        var missingPrereqAlert = "WARNING: You are missing the following prerequisite(s): " + missingPrereqs;
+        alert(missingPrereqAlert);
+      }
 
-    window.location.reload();
+      timetable.push(course);
+      localStorage.setItem("timetable", JSON.stringify(timetable));
+      window.location.reload();
+    }
   };
 
   openLink = () => {

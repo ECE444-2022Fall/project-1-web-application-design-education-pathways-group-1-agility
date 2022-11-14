@@ -49,6 +49,9 @@ export default class Timetable extends Component {
     }
   };
 
+  printCSV = () => {
+    window.print();
+  }
   render() {
     return (
       <div className="body_text">
@@ -62,9 +65,12 @@ export default class Timetable extends Component {
               <th>Year</th>
             </tr>
             {this.getTimeTable().map((val, key) => {
+              var courseDescriptionPage = "/courseDetails/" + val.course_id
               return (
                 <tr key={key}>
-                  <td>{val.course_code}</td>
+                  <td>
+                    <Link to={courseDescriptionPage}>{val.course_code}</Link>
+                  </td>
                   <td>{val.course_name}</td>
                   <td>{val.semester}</td>
                   <td>{val.year}</td>
@@ -87,6 +93,12 @@ export default class Timetable extends Component {
             className="download-timetable-button"
           >
             Download CSV
+          </button>
+          <button
+            onClick={this.printCSV}
+            className="download-timetable-button"
+          >
+            Print Page
           </button>
         </div>
       </div>

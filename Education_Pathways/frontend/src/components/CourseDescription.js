@@ -38,55 +38,57 @@ class CourseDescriptionPage extends Component {
   }
 
   componentDidMount() {
-    axios.get(`/courses/${this.props.match.params.id}`).then((res) => {
-      this.setState({ course_code: res.data.Code });
-      this.setState({ course_name: res.data.Name });
-      this.setState({ course_description: res.data["Course Description"] });
-      this.setState({ faculty: res.data.Faculty });
-      this.setState({ department: res.data.Department });
-      this.setState({ prerequisites: res.data["Pre-requisites"].join(", ") });
-      this.setState({ prerequisitesArr: res.data["Pre-requisites"] });
-      this.setState({ corequisites: res.data["Corequisite"].join(", ") });
-      this.setState({ exclusions: res.data["Exclusion"].join(", ") });
-      this.setState({ rating: res.data.Rating });
-      this.setState({
-        dispRating: !localStorage.getItem(
-          `rating-${this.props.match.params.id}`
-        ),
+    axios
+      .get(`/courses/${this.props.match.params.id}`)
+      .then((res) => {
+        this.setState({ course_code: res.data.Code });
+        this.setState({ course_name: res.data.Name });
+        this.setState({ course_description: res.data["Course Description"] });
+        this.setState({ faculty: res.data.Faculty });
+        this.setState({ department: res.data.Department });
+        this.setState({ prerequisites: res.data["Pre-requisites"].join(", ") });
+        this.setState({ prerequisitesArr: res.data["Pre-requisites"] });
+        this.setState({ corequisites: res.data["Corequisite"].join(", ") });
+        this.setState({ exclusions: res.data["Exclusion"].join(", ") });
+        this.setState({ rating: res.data.Rating });
+        this.setState({
+          dispRating: !localStorage.getItem(
+            `rating-${this.props.match.params.id}`
+          ),
+        });
+
+        const syllabus_link = (() => {
+          if (this.state.course_code.slice(0, 3) !== "ECE") {
+            return (
+              "https://exams-library-utoronto-ca.myaccess.library.utoronto.ca/simple-search?query=" +
+              this.state.course_code
+            );
+          }
+
+          return "http://courses.skule.ca/search/" + this.state.course_code;
+        })();
+
+        this.setState({ syllabus: syllabus_link });
+      })
+      .catch((err) => {
+        console.log("Error");
       });
-
-      const syllabus_link = (() => {
-        if (this.state.course_code.slice(0, 3) !== "ECE") {
-          return (
-            "https://exams-library-utoronto-ca.myaccess.library.utoronto.ca/simple-search?query=" +
-            this.state.course_code
-          );
-        }
-
-        return "http://courses.skule.ca/search/" + this.state.course_code;
-      })();
-
-      this.setState({ syllabus: syllabus_link });
-    });
   }
 
-  saveToTimetableCSV = () => {
+  saveToTimetableCSV = (courseId, courseCode, courseName, semester, year) => {
     let timetable = JSON.parse(localStorage.getItem("timetable"));
     var missingPrereqs = [];
-
     var course = {
-      course_id: this.props.match.params.id,
-      course_code: this.state.course_code,
-      course_name: this.state.course_name,
-      semester: this.selectSemester.value,
-      year: this.selectYear.value,
+      course_id: courseId,
+      course_code: courseCode,
+      course_name: courseName,
+      semester: semester,
+      year: year,
     };
 
-    if (timetable.some((e) => e.course_code === this.state.course_code)) {
+    if (timetable.some((e) => e.course_id === this.props.match.params.id)) {
       alert("This course is already saved in your timetable!");
     } else {
-      console.log(this.state.prerequisitesArr);
-
       this.state.prerequisitesArr.forEach((prereq) => {
         if (
           timetable.some(
@@ -155,12 +157,6 @@ class CourseDescriptionPage extends Component {
               <h1>
                 {this.state.course_code} : {this.state.course_name}
                 {/* Button to link to Edit Course Information page */}
-                <Link
-                  to={`/edit/${this.props.match.params.id}`}
-                  state={{ id: this.props.match.params.id }}
-                >
-                  <img src={edit_icon} alt="Edit" className="edit-button" />
-                </Link>
               </h1>
             </Col>
             {this.state.rating ? (
@@ -233,8 +229,17 @@ class CourseDescriptionPage extends Component {
             <Col className="col-item">
               <h3>Save Course</h3>
               <button
+                data-testid={"add-course-to-timetable-btn"}
                 className={"add-course-to-timetable-link"}
-                onClick={this.saveToTimetableCSV}
+                onClick={() =>
+                  this.saveToTimetableCSV(
+                    this.props.match.params.id,
+                    this.state.course_code,
+                    this.state.course_name,
+                    this.selectSemester.value,
+                    this.selectYear.value
+                  )
+                }
               >
                 Add to Timetable
               </button>

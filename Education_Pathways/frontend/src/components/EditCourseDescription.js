@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import axios from "../axiosInstance/AxiosInstance";
 import Spinner from "./Spinner";
-import "./css/course-description.css";
+import "./css/edit-course-description.css";
 import "bootstrap/dist/css/bootstrap.css";
 import { Redirect } from "react-router-dom";
 import { Link } from "react-router-dom";
@@ -64,7 +64,7 @@ class EditCourseDesc extends Component {
         password: event.target.password.value,
       });
       const { token } = res.data;
-      localStorage.setItem("access_token", token);
+      //localStorage.setItem("access_token", token);
       
       // remove trailing entries in these 3 fields
       const pre_requisite = parseArr(event.target.prerequisites.value);
@@ -72,22 +72,32 @@ class EditCourseDesc extends Component {
       const exclusion = parseArr(event.target.exclusions.value);
 
       // patch database changes
-      await axios.patch(`courses/${this.props.match.params.id}`, {
-        "Course Description": event.target.description.value,
-        Code: event.target.code.value,
-        Name: event.target.name.value,
-        Faculty: event.target.faculty.value,
-        Department: event.target.department.value,
-        "Pre-requisites": pre_requisite,
-        Corequisite: co_requisite,
-        Exclusion: exclusion,
-      });
+      await axios.patch(
+        `courses/${this.props.match.params.id}`,
+        {
+          "Course Description": event.target.description.value,
+          Code: event.target.code.value,
+          Name: event.target.name.value,
+          Faculty: event.target.faculty.value,
+          Department: event.target.department.value,
+          "Pre-requisites": pre_requisite,
+          Corequisite: co_requisite,
+          Exclusion: exclusion,
+        },
+        {
+          headers: {
+            Authorization: "Bearer " + token,
+          },
+        }
+      );
       this.setState({ editDone: true });
     } catch (err) {
       // authentication error, do not refresh if user would like to re-enter credentials
       event.preventDefault();
       event.target.password.value = "";
-      alert("Unable to update course");
+      alert(
+        "Unable to update course. Please confirm that the admin credentials are correct."
+      );
     }
     this.setState({ dispSpinner: false });
   };
@@ -110,19 +120,22 @@ class EditCourseDesc extends Component {
         </h1>
         {/* Forms and Fields with current data filled out for user to edit however they like */}
         <form className="form" onSubmit={this.onSubmit}>
-          <label className="form-field-label">Username</label>
+          <label className="form-field-label">Admin Username</label>
           <input
             type="text"
             id="username"
-            placeholder="Administrator Email"
+            placeholder="Admin Email"
             className="text-input form-field"
           />
-          <label className="form-field-label">Password</label>
+          <label className="form-field-label">Admin Password</label>
           <input
             type="password"
             id="password"
             className="text-input form-field"
           />
+          <p>Admin credentials required to update.</p>
+          <hr className="section-divider"></hr>
+          <br></br>
           <label className="form-field-label">Course Code</label>
           <input
             type="text"
@@ -160,9 +173,12 @@ class EditCourseDesc extends Component {
             defaultValue={this.state.department}
             className="text-input form-field"
           />
-          <h1 style={{ margin: "2%" }} className="form-field-label">
-            Course Requisites (Separate With Commas)
+          <h1 style={{ margin: "2%" }} className="form-field-label-underlined">
+            &nbsp;Course Requisites&nbsp;
           </h1>
+          <p>Please enter requisite course codes, seperated by commas.</p>
+          <p>Ex. ABC123H1, ABC456H1</p>
+          <br></br>
           <label className="form-field-label">Pre-Requisites</label>
           <input
             type="text"

@@ -1,7 +1,11 @@
+/*
+ * Setup express application
+ */
+
 const express = require("express");
-require("./db/mongoose.js");
-const courseRouter = require("./router/course");
-const userRouter = require("./router/user");
+require("./models");
+const courseRouter = require("./routes/courses.routes");
+const userRouter = require("./routes/users.routes");
 const cors = require("cors");
 
 const app = express();

@@ -8,6 +8,7 @@ import Row from "react-bootstrap/Row";
 import axios from "../axiosInstance/AxiosInstance";
 import Spinner from "./Spinner";
 import { Link } from "react-router-dom";
+import edit_icon from "../assets/edit_icon.png";
 
 /*
 Course Description Page to view course info, edit course info, or leave a rating out of 5 stars
@@ -25,12 +26,14 @@ class CourseDescriptionPage extends Component {
       course_description: "",
       syllabus: "",
       prerequisites: "",
+      prerequisitesArr: [],
       corequisites: "",
       exclusions: "",
       rating: 0,
       userRating: 0,
       dispSpinner: false,
       dispRating: false,
+      currentYear: new Date().getFullYear(),
     };
   }
 
@@ -42,6 +45,7 @@ class CourseDescriptionPage extends Component {
       this.setState({ faculty: res.data.Faculty });
       this.setState({ department: res.data.Department });
       this.setState({ prerequisites: res.data["Pre-requisites"].join(", ") });
+      this.setState({ prerequisitesArr: res.data["Pre-requisites"] });
       this.setState({ corequisites: res.data["Corequisite"].join(", ") });
       this.setState({ exclusions: res.data["Exclusion"].join(", ") });
       this.setState({ rating: res.data.Rating });
@@ -65,6 +69,46 @@ class CourseDescriptionPage extends Component {
       this.setState({ syllabus: syllabus_link });
     });
   }
+
+  saveToTimetableCSV = () => {
+    let timetable = JSON.parse(localStorage.getItem("timetable"));
+    var missingPrereqs = [];
+
+    var course = {
+      course_id: this.props.match.params.id,
+      course_code: this.state.course_code,
+      course_name: this.state.course_name,
+      semester: this.selectSemester.value,
+      year: this.selectYear.value,
+    };
+
+    if (timetable.some((e) => e.course_code === this.state.course_code)) {
+      alert("This course is already saved in your timetable!");
+    } else {
+      console.log(this.state.prerequisitesArr);
+
+      this.state.prerequisitesArr.forEach((prereq) => {
+        if (
+          timetable.some(
+            (savedCourse) => savedCourse.course_code === prereq
+          ) === false
+        ) {
+          missingPrereqs.push(prereq);
+        }
+      });
+
+      if (missingPrereqs.length > 0) {
+        var missingPrereqAlert =
+          "WARNING: You are missing the following prerequisite(s): " +
+          missingPrereqs;
+        alert(missingPrereqAlert);
+      }
+
+      timetable.push(course);
+      localStorage.setItem("timetable", JSON.stringify(timetable));
+      window.location.reload();
+    }
+  };
 
   openLink = () => {
     const newWindow = window.open(
@@ -151,6 +195,54 @@ class CourseDescriptionPage extends Component {
               </button>
             </Col>
           </Row>
+          <Row>
+            <Col className="col-item">
+              <h3>Semester</h3>
+              <div className="select-wrapper">
+                <select
+                  ref={(input) => (this.selectSemester = input)}
+                  className="select-box"
+                >
+                  <option value="Fall">Fall</option>
+                  <option value="Winter">Winter</option>
+                </select>
+              </div>
+            </Col>
+            <Col className="col-item">
+              <h3>Year</h3>
+              <div className="select-wrapper">
+                <select
+                  ref={(input) => (this.selectYear = input)}
+                  className="select-box"
+                >
+                  <option value={String(this.state.currentYear)}>
+                    {this.state.currentYear}
+                  </option>
+                  <option value={String(this.state.currentYear + 1)}>
+                    {this.state.currentYear + 1}
+                  </option>
+                  <option value={String(this.state.currentYear + 2)}>
+                    {this.state.currentYear + 2}
+                  </option>
+                  <option value={String(this.state.currentYear + 3)}>
+                    {this.state.currentYear + 3}
+                  </option>
+                  <option value={String(this.state.currentYear + 4)}>
+                    {this.state.currentYear + 4}
+                  </option>
+                </select>
+              </div>
+            </Col>
+            <Col className="col-item">
+              <h3>Save Course</h3>
+              <button
+                className={"add-course-to-timetable-link"}
+                onClick={this.saveToTimetableCSV}
+              >
+                Add to Timetable
+              </button>
+            </Col>
+          </Row>
           <Row className="col-item course-description">
             <h3>Course Description</h3>
             <p>{this.state.course_description}</p>
@@ -187,7 +279,7 @@ class CourseDescriptionPage extends Component {
                 size={40}
                 value={this.state.userRating}
               />
-              <button className="rate-button" onClick={this.submitUserRating}>
+              <button className={"rate-button"} onClick={this.submitUserRating}>
                 Submit
               </button>
             </Row>

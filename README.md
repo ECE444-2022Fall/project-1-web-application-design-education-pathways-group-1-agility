@@ -1,7 +1,7 @@
 # ECE444 F2022 Project 1: Education Pathways
 ## App is deployed here: https://agility-education-pathways-app.herokuapp.com/
-Authors: Group1 (Team Agility)
 ## User Guide: https://www.youtube.com/watch?v=433Gg5AhhAE
+Authors: Group 1 (Team Agility)
 <br />Nissar Ishtiak - https://github.com/ishtiakn
 <br />Andrew Kim - https://github.com/AndrewMinyoungKim
 <br />Abdullah A. Mohammed - https://github.com/abdullah578

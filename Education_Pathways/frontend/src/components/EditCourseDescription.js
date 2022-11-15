@@ -111,11 +111,9 @@ class EditCourseDesc extends Component {
     ) : (
       <div>
         {/* back button */}
-        <Link to={`/courseDetails/${this.props.match.params.id}`}>
-          <button id={"form-back-button"} className={"syllabus-link"}>
-            Back
-          </button>
-        </Link>
+        <form action={`/courseDetails/${this.props.match.params.id}`}>
+          <input type="submit" value="Back" id={"form-back-button"} className={"syllabus-link"} />
+        </form>
         {/* title */}
         <h1 style={{ marginBottom: "2.5%" }}>
           {this.state.course_code}: {this.state.course_name}

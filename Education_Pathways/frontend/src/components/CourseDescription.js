@@ -155,12 +155,15 @@ class CourseDescriptionPage extends Component {
               <h1>
                 {this.state.course_code} : {this.state.course_name}
                 {/* Button to link to Edit Course Information page */}
-                <Link
-                  to={`/edit/${this.props.match.params.id}`}
-                  state={{ id: this.props.match.params.id }}
+                <a
+                    href={`/edit/${this.props.match.params.id}`}
+                    state={{ id: this.props.match.params.id }}
                 >
-                  <img src={edit_icon} alt="Edit" className="edit-button" />
-                </Link>
+                  <img
+                    src={require("./img/edit_icon.png").default}
+                    alt="Edit"
+                    className="edit-button" />
+                </a>
               </h1>
             </Col>
             {this.state.rating ? (

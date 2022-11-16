@@ -7,8 +7,7 @@ import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import axios from "../axiosInstance/AxiosInstance";
 import Spinner from "./Spinner";
-import { Link } from "react-router-dom";
-import edit_icon from "../assets/edit_icon.png";
+import editIcon from "../assets/edit_icon.png";
 
 /*
 Course Description Page to view course info, edit course info, or leave a rating out of 5 stars
@@ -157,6 +156,15 @@ class CourseDescriptionPage extends Component {
               <h1>
                 {this.state.course_code} : {this.state.course_name}
                 {/* Button to link to Edit Course Information page */}
+                <a
+                    href={`/edit/${this.props.match.params.id}`}
+                    state={{ id: this.props.match.params.id }}
+                >
+                  <img
+                    src={editIcon}
+                    alt="Edit"
+                    className="edit-button" />
+                </a>
               </h1>
             </Col>
             {this.state.rating ? (

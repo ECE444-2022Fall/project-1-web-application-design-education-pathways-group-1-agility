@@ -20,4 +20,4 @@ Nissar Ishtiak ~ https://github.com/ECE444-2022Fall/project-1-web-application-de
 <br />Andrew Kim ~ https://github.com/ECE444-2022Fall/project-1-web-application-design-education-pathways-group-1-agility/blob/85a73c5f01fee9f25d1426a8e58d659b7d6a77fb/Education_Pathways/backend/tests/course.test.js#L286-L306
 <br />Abdullah A. Mohammed ~ https://github.com/ECE444-2022Fall/project-1-web-application-design-education-pathways-group-1-agility/blob/8d3788635671f944d130a1c4712f28611dfa5de6/Education_Pathways/backend/tests/course.test.js#L79-L280
 <br />Chuanyang Qiao ~
-<br />Gaurav Ranganath ~ https://github.com/ECE444-2022Fall/project-1-web-application-design-education-pathways-group-1-agility/blob/85a73c5f01fee9f25d1426a8e58d659b7d6a77fb/Education_Pathways/frontend/src/components/CourseDescription.test.js#L1-L134
+<br />Gaurav Ranganath ~ https://github.com/ECE444-2022Fall/project-1-web-application-design-education-pathways-group-1-agility/blob/main/Education_Pathways/frontend/src/components/CourseDescription.test.js

@@ -29,6 +29,7 @@ global.localStorage = new LocalStorageMock();
 delete window.location;
 window.location = { reload: jest.fn() };
 
+// (Gaurav Ranganath LAB 6 TDD) 
 test("Tests adding course to timetable", () => {
   const props = {
     match: {
@@ -59,6 +60,7 @@ test("Tests adding course to timetable", () => {
   ]);
 });
 
+// (Gaurav Ranganath LAB 6 TDD) 
 test("Tests adding a duplicate course to timetable", () => {
   const props = {
     match: {
@@ -90,6 +92,7 @@ test("Tests adding a duplicate course to timetable", () => {
   ]);
 });
 
+// (Gaurav Ranganath LAB 6 TDD) 
 test("Tests adding multiple courses to timetable", () => {
   var props = {
     match: {
